@@ -1,15 +1,48 @@
-<mat-card>
-    Hello
-</mat-card>
-<mat-card>
-    Hello
-</mat-card>
-<mat-card>
-    Hello
-</mat-card>
-<mat-card>
-    Hello
-</mat-card>
-<mat-card>
-    Hello
-</mat-card>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        Hello there
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-card class="creation-form-container">
+            <mat-card-title>Employee Creation Form</mat-card-title>
+            <form>
+                <mat-form-field class="user-id">
+                    <mat-label>User Id</mat-label>
+                    <input matInput placeholder="JohnDoe123" required>
+                </mat-form-field>
+                <mat-form-field class="password">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput required>
+                </mat-form-field>
+                <mat-form-field class="confirm-password">
+                    <mat-label>Confirm Password</mat-label>
+                    <input type="password" matInput required>
+                </mat-form-field>
+                <mat-form-field class="position">
+                    <mat-label>Position</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let pos of positions" [value]="pos">
+                            {{ pos }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="last-name">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Doe" required>
+                </mat-form-field>
+                <mat-form-field class="last-name">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Doe" required>
+                </mat-form-field>
+                <mat-form-field class="last-name">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Doe" required>
+                </mat-form-field>
+                <mat-form-field class="last-name">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Doe" required>
+                </mat-form-field>
+            </form>
+        </mat-card>
+    </mat-sidenav-content>
+</mat-sidenav-container>
