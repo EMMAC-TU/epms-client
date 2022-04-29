@@ -1,0 +1,27 @@
+mat-sidenav {
+    width: 200px;
+    text-align: center;
+}
+.button-rows {
+    margin-top: 250px;
+}
+
+.hamburger-button {
+    margin-left: 140px
+}
+
+.nav-button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 200px;
+}
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}

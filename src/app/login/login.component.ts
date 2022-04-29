@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  @Output() isLogin = new EventEmitter<boolean>();
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
 }

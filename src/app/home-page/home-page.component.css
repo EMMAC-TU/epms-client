@@ -11,13 +11,33 @@
 }
 .creation-form-container {
     max-width: 1000px;
-    margin-top: 100px;
-    margin-left: 350px;
+    margin-top: 150px;
+    margin-left: 250px;
     text-align: center;
     padding-bottom: 50px;
     padding-top: 50px;
 }
 
+.button-rows {
+    margin-top: 250px;
+}
+
+.hamburger-button {
+    margin-left: 140px
+}
+
+.nav-button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 200px;
+}
+
 mat-form-field {
     margin: 20px
+}
+
+mat-sidenav {
+    width: 200px;
+    text-align: center;
 }
