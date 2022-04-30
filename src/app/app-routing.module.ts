@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'create-employee',
     component: EmployeeCreationComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];
 
