@@ -16,7 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
-import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component'
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component'
     LoginComponent,
     HomePageComponent,
     EmployeeCreationComponent,
-    SideNavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +37,8 @@ import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component'
     MatIconModule,
     MatSidenavModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
