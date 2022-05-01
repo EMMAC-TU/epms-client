@@ -4,11 +4,11 @@
         <form>
             <mat-form-field class="user-id">
                 <mat-label>User Id</mat-label>
-                <input matInput placeholder="JohnDoe123" required>
+                <input matInput placeholder="JohnDoe123" required name="userid" [(ngModel)]="newEmployee.userid">
             </mat-form-field>
             <mat-form-field class="password">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput required>
+                <input type="password" matInput required name="password" [(ngModel)]="newEmployee.password">
             </mat-form-field>
             <mat-form-field class="confirm-password">
                 <mat-label>Confirm Password</mat-label>
@@ -16,7 +16,7 @@
             </mat-form-field>
             <mat-form-field class="position">
                 <mat-label>Position</mat-label>
-                <mat-select>
+                <mat-select name="position" [(ngModel)]="newEmployee.position" required>
                     <mat-option *ngFor="let pos of positions" [value]="pos">
                         {{ pos }}
                     </mat-option>
@@ -25,19 +25,19 @@
             <br>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="John" required>
+                <input matInput placeholder="John" required name="firstname" [(ngModel)]="newEmployee.firstname">
             </mat-form-field>
             <mat-form-field class="middle-initial">
                 <mat-label>M.I.</mat-label>
-                <input matInput placeholder="J" required>
+                <input matInput placeholder="J" name="middleinitial" [(ngModel)]="newEmployee.middleinitial">
             </mat-form-field>
             <mat-form-field class="last-name">
                 <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" required name="lastname" [(ngModel)]="newEmployee.lastname">
             </mat-form-field>
             <mat-form-field class="gender">
                 <mat-label>Gender</mat-label>
-                <mat-select>
+                <mat-select name="gender" [(ngModel)]="newEmployee.gender">
                     <mat-option value="Male">
                         Male
                     </mat-option>
@@ -51,51 +51,51 @@
             </mat-form-field>
             <mat-form-field class="date-of-birth">
                 <mat-label>Date of Birth</mat-label>
-                <input type="date" matInput placeholder="Doe" required>
+                <input type="date" matInput placeholder="Doe" required name="dateofbirth" [(ngModel)]="newEmployee.dateofbirth">
             </mat-form-field>
             <br>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" required name="email" [(ngModel)]="newEmployee.email">
             </mat-form-field>
             <mat-form-field class="mobile-phone">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput placeholder="4105551234" required>
+                <input matInput placeholder="4105551234" name="mobilephone" [(ngModel)]="newEmployee.mobilephone">
             </mat-form-field>
             <mat-form-field class="work-phone">
                 <mat-label>Work Number</mat-label>
-                <input matInput placeholder="4105551234" required>
+                <input matInput placeholder="4105551234" name="workphone" [(ngModel)]="newEmployee.workphone">
             </mat-form-field>
             <mat-form-field class="home-phone">
                 <mat-label>Home Number</mat-label>
-                <input matInput placeholder="4105551234" required>
+                <input matInput placeholder="4105551234" name="homephone" [(ngModel)]="newEmployee.homephone">
             </mat-form-field>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="address1" [(ngModel)]="newEmployee.address1">
             </mat-form-field>
             <mat-form-field class="street-address-2">
                 <mat-label>Street Address 2</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="address2" [(ngModel)]="newEmployee.address2">
             </mat-form-field>
             <mat-form-field class="city">
                 <mat-label>City</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="city" [(ngModel)]="newEmployee.city">
             </mat-form-field>
             <mat-form-field class="state">
                 <mat-label>State</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="state" [(ngModel)]="newEmployee.state">
             </mat-form-field>
             <mat-form-field class="zip-code">
                 <mat-label>Zip Code</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="zipcode" [(ngModel)]="newEmployee.zipcode">
             </mat-form-field>
             <mat-form-field class="country">
                 <mat-label>Country</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="Doe" name="country" [(ngModel)]="newEmployee.country">
             </mat-form-field>
             <br>
-            <button mat-raised-button class="login-button">Submit</button>
+            <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>
     
         </form>
     </mat-card>

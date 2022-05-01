@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EmployeeCreation } from '../types/EmployeeCreation';
 import { PatientCreation } from '../types/PatientCreation';
 
 @Component({
@@ -11,7 +12,7 @@ export class DialogWindowComponent implements OnInit{
   fields: string[] = [];
   constructor(
     public dialogRef: MatDialogRef<DialogWindowComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PatientCreation,
+    @Inject(MAT_DIALOG_DATA) public data: PatientCreation | EmployeeCreation,
   ) {}
 
   ngOnInit(): void {
