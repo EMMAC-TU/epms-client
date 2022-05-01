@@ -4,6 +4,7 @@ import { EmployeeCreationComponent } from './employee-creation/employee-creation
 import { AuthGuard } from './guard/auth.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
+import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'create-employee',
     component: EmployeeCreationComponent
+  },
+  {
+    path: 'create-patient',
+    component: PatientCreationComponent
   },
   {
     path: '**',

@@ -17,6 +17,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PatientCreationComponent } from './patient-creation/patient-creation.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     LoginComponent,
     HomePageComponent,
     EmployeeCreationComponent,
+    PatientCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSidenavModule,
     MatOptionModule,
     MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

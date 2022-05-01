@@ -1,25 +1,23 @@
 <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" *ngIf="!isOnLogin()" [opened]="isSideBarOpen">
+        <div class="button-rows">
+            <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Search Employee</button> <br>
+            <button mat-button class="nav-button" color="primary">Search Patient</button> <br>
+            <button mat-button class="nav-button" [routerLink]="['/create-employee']" color="primary">Create Employee</button> <br>
+            <button mat-button class="nav-button" [routerLink]="['/create-patient']" color="primary">Create Patient</button> <br>
+            <button mat-button class="nav-button" color="primary">Primary</button> <br>
+        </div>
+    </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar *ngIf="!isOnLogin()" color="primary">
+            <button mat-icon-button (click)="isSideBarOpen=!isSideBarOpen">
+                <mat-icon>menu</mat-icon>
+            </button>
             <span>Electronic Health Record System</span>
-            <button mat-icon-button class="home-icon">
+            <button mat-icon-button class="home-icon" (click)="goToHome()">
                 <mat-icon>home</mat-icon>
             </button>
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
-    <mat-sidenav mode="side" *ngIf="!isOnLogin()" opened>
-        <div class="hamburger-button">
-            <button mat-icon-button color="primary">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </div>
-        <div class="button-rows">
-            <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Search Employee</button> <br>
-            <button mat-button class="nav-button" color="primary">Search Patient</button> <br>
-            <button mat-button class="nav-button" [routerLink]="['/create-employee']" color="primary">Create Employee</button> <br>
-            <button mat-button class="nav-button" color="primary">Create Patient</button> <br>
-            <button mat-button class="nav-button" color="primary">Primary</button> <br>
-        </div>
-    </mat-sidenav>
 </mat-sidenav-container>
