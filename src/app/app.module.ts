@@ -17,8 +17,11 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     EmployeeCreationComponent,
     PatientCreationComponent,
+    DialogWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatOptionModule,
     MatSelectModule,
     MatToolbarModule,
-    HttpClientModule
+    MatDialogModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,19 +4,19 @@
         <form>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="John" required>
+                <input matInput placeholder="John" required name="firstname" [(ngModel)]="newPatient.firstname">
             </mat-form-field>
             <mat-form-field class="middle-initial">
                 <mat-label>M.I.</mat-label>
-                <input matInput>
+                <input matInput name="middleinitial" [(ngModel)]="newPatient.middleinitial">
             </mat-form-field>
             <mat-form-field class="last-name">
                 <mat-label>Last Name</mat-label>
-                <input matInput required>
+                <input matInput required name="lastname" [(ngModel)]="newPatient.lastname">
             </mat-form-field>
             <mat-form-field class="gender">
                 <mat-label>Gender</mat-label>
-                <mat-select>
+                <mat-select name="gender" [(ngModel)]="newPatient.gender">
                     <mat-option value="Male">
                         Male
                     </mat-option>
@@ -30,7 +30,7 @@
             </mat-form-field>
             <mat-form-field class="date-of-birth">
                 <mat-label>Date of Birth</mat-label>
-                <input type="date" matInput placeholder="Doe" required>
+                <input type="date" matInput required name="dateofbirth" [(ngModel)]="newPatient.dateofbirth">
             </mat-form-field>
             <mat-form-field class="out-patient">
                 <mat-label>Out Patient?</mat-label>
@@ -42,72 +42,72 @@
             </mat-form-field>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Doe" required>
+                <input matInput placeholder="JDoe123@gmail.com" required name="email" [(ngModel)]="newPatient.email">
             </mat-form-field>
             <mat-form-field class="mobile-phone">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput placeholder="4105551234">
+                <input matInput placeholder="4105551234" name="mobilephone" [(ngModel)]="newPatient.mobilephone">
             </mat-form-field>
             <mat-form-field class="work-phone">
                 <mat-label>Work Number</mat-label>
-                <input matInput placeholder="4105551234">
+                <input matInput placeholder="4105551234" name="workphone" [(ngModel)]="newPatient.workphone">
             </mat-form-field>
             <mat-form-field class="home-phone">
                 <mat-label>Home Number</mat-label>
-                <input matInput placeholder="4105551234">
+                <input matInput placeholder="4105551234" name="homephone" [(ngModel)]="newPatient.homephone">
             </mat-form-field>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="Address 1 Lane" name="address1" [(ngModel)]="newPatient.address1">
             </mat-form-field>
             <mat-form-field class="street-address-2">
                 <mat-label>Street Address 2</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="Address 2 Street" name="address2" [(ngModel)]="newPatient.address2">
             </mat-form-field>
             <mat-form-field class="city">
                 <mat-label>City</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="New York" name="city" [(ngModel)]="newPatient.city">
             </mat-form-field>
             <mat-form-field class="state">
                 <mat-label>State</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="New York" name="state" [(ngModel)]="newPatient.state">
             </mat-form-field>
             <mat-form-field class="zip-code">
                 <mat-label>Zip Code</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="21345" name="zipcode" [(ngModel)]="newPatient.zipcode">
             </mat-form-field>
             <mat-form-field class="country">
                 <mat-label>Country</mat-label>
-                <input matInput placeholder="Doe" >
+                <input matInput placeholder="United States" name="country" [(ngModel)]="newPatient.country">
             </mat-form-field>
             <br>
             <mat-form-field class="nok-firstname">
                 <mat-label>Next of Kin First Name</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="Jane" name="nokfirstame" [(ngModel)]="newPatient.nokfirstname">
             </mat-form-field>
             <mat-form-field class="nok-lastname">
                 <mat-label>Next of Kin Last Name</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="Doe" name="noklastname" [(ngModel)]="newPatient.noklastname">
             </mat-form-field>
             <mat-form-field class="nok-phonenumber">
                 <mat-label>Next of Kin Phone Number</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="4105559876" name="nokphone" [(ngModel)]="newPatient.nokphone">
             </mat-form-field>
             <br>
             <mat-form-field class="insurance-co-name">
                 <mat-label>Insurance Company</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="Insurance Co." name="insurancename" [(ngModel)]="newPatient.insurancename">
             </mat-form-field>
             <mat-form-field class="member-id">
                 <mat-label>Member ID</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="123451232" name="memberid" [(ngModel)]="newPatient.memberid">
             </mat-form-field>
             <mat-form-field class="group-num">
                 <mat-label>Group Number</mat-label>
-                <input matInput placeholder="Doe">
+                <input matInput placeholder="D231231oe" name="groupnumber" [(ngModel)]="newPatient.groupnumber">
             </mat-form-field>
             <br>
-            <button mat-raised-button class="login-button">Submit</button>
+            <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>
     
         </form>
     </mat-card>
