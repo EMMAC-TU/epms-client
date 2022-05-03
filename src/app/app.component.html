@@ -1,11 +1,17 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" *ngIf="!isOnLogin()" [opened]="isSideBarOpen">
         <div class="button-rows">
-            <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Search Employee</button> <br>
-            <button mat-button class="nav-button" color="primary">Search Patient</button> <br>
-            <button mat-button class="nav-button" [routerLink]="['/create-employee']" color="primary">Create Employee</button> <br>
-            <button mat-button class="nav-button" [routerLink]="['/create-patient']" color="primary">Create Patient</button> <br>
-            <button mat-button class="nav-button" color="primary">Primary</button> <br>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" color="primary">Search Employee</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" color="primary">Search Patient</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/create-employee']" color="primary">Create Employee</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/create-patient']" color="primary">Create Patient</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Login</button>
+            <mat-divider></mat-divider>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>

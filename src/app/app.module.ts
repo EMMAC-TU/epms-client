@@ -22,6 +22,7 @@ import { PatientCreationComponent } from './patient-creation/patient-creation.co
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { DialogWindowComponent } from './dialog-window/dialog-window.component';
     MatSelectModule,
     MatToolbarModule,
     MatDialogModule,
+    MatDividerModule,
     HttpClientModule,
     FormsModule
   ],

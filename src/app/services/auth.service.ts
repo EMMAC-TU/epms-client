@@ -12,4 +12,8 @@ export class AuthService {
   async login(username: string, password: string) {
     console.log(`Sending request to ${environment.apiURL}/auth/login`)
   }
+
+  async changePassword() {
+    
+  }
 }
