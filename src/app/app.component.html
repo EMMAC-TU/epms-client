@@ -1,1 +1,29 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" *ngIf="!isOnLogin()" [opened]="isSideBarOpen">
+        <div class="button-rows">
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" color="primary">Search Employee</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" color="primary">Search Patient</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/create-employee']" color="primary">Create Employee</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/create-patient']" color="primary">Create Patient</button>
+            <mat-divider></mat-divider>
+            <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Login</button>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar *ngIf="!isOnLogin()" color="primary">
+            <button mat-icon-button (click)="isSideBarOpen=!isSideBarOpen">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Electronic Health Record System</span>
+            <button mat-icon-button class="home-icon" (click)="goToHome()">
+                <mat-icon>home</mat-icon>
+            </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
