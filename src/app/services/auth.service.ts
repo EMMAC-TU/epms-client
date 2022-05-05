@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,8 +10,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  async login(username: string, password: string) {
+  login(username: string, password: string): Observable<Object>{
     console.log(`Sending request to ${environment.apiURL}/auth/login`)
+    return this.http.post(`${environment.apiURL}/auth/login`,{
+      userid: username,
+      password: password
+    }, { responseType: 'json'});
   }
 
   async changePassword() {

@@ -48,7 +48,7 @@ export class PatientCreationComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '400px',
-      data: this.newPatient,
+      data: {title: "Is the Following correct?", confirm: 'YesNo', msg: this.newPatient},
     });
 
     dialogRef.afterClosed().subscribe(result => {

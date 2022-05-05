@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDialogModule,
     MatDividerModule,
     HttpClientModule,
+    MatSnackBarModule,
     FormsModule
   ],
   providers: [],

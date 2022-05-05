@@ -10,20 +10,30 @@ import { PatientCreation } from '../types/PatientCreation';
 })
 export class DialogWindowComponent implements OnInit{
   fields: string[] = [];
+  isString: boolean = false;
+  title: string = ""
+  typeConfirmation: string = "";
   constructor(
     public dialogRef: MatDialogRef<DialogWindowComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PatientCreation | EmployeeCreation,
+    @Inject(MAT_DIALOG_DATA) public data: {title: string, confirm: "YesNo" | "Ok", msg: PatientCreation | EmployeeCreation | String },
   ) {}
 
   ngOnInit(): void {
-    let format: string = '';
-    Object.entries(this.data).forEach((value, index) => {
-      if (value[1] !== ''){
-        format = `${value[0]}: ${value[1]}`
-        this.fields.push(format);
+    this.title = this.data.title;
+    this.typeConfirmation = this.data.confirm;
+    
+    if (this.data.msg instanceof String) {
+      this.isString = true;
+    } else {
+      let format: string = '';
+      Object.entries(this.data.msg).forEach((value, index) => {
+        if (value[1] !== ''){
+          format = `${value[0]}: ${value[1]}`
+          this.fields.push(format);
 
-      }
-    });
+        }
+      });
+    }
   }
 
   onNoClick(): void {

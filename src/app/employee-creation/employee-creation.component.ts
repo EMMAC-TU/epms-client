@@ -49,7 +49,7 @@ export class EmployeeCreationComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '400px',
-      data: this.newEmployee,
+      data: {title: "Is the Following correct?", confirm: 'YesNo', msg: this.newEmployee},
     });
 
     dialogRef.afterClosed().subscribe(result => {
