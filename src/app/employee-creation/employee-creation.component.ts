@@ -58,6 +58,7 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   onSubmit() {
+    
     console.log(this.newEmployee.userid);
     console.log(this.newEmployee.password);
     console.log(this.newEmployee.position);
