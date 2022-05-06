@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
 import { AuthGuard } from './guard/auth.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { SearchEmployeeComponent } from './search-employee/search-employee.component';
+import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,18 @@ const routes: Routes = [
   {
     path: 'search-employee',
     component: SearchEmployeeComponent
+  },
+  {
+    path: 'create-employee',
+    component: EmployeeCreationComponent
+  },
+  {
+    path: 'create-patient',
+    component: PatientCreationComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];
 
