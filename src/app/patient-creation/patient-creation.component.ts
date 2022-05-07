@@ -56,9 +56,6 @@ export class PatientCreationComponent implements OnInit {
     insurance_memberid: '',
   }
 
-  errorMessage = "Hi";
-
-
   constructor(private dialog: MatDialog, 
     private service: PatientService, 
     private _snackBar: MatSnackBar,
@@ -82,11 +79,11 @@ export class PatientCreationComponent implements OnInit {
       this.workPhone.invalid ||
       this.homePhone.invalid ||
       this.middleInit.invalid ||
-      this.dateofbirth.getError('invalidDate')
+      this.dateofbirth.getError('invalidDate') ||
+      this.nokNumber.invalid
     ){
       return;
     }
-    //this.validator.validateDateOfBirth(this.newPatient.dateofbirth);
 
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '400px',
@@ -103,9 +100,6 @@ export class PatientCreationComponent implements OnInit {
     this.newPatient = this.validator.createRegistrationRequest(this.newPatient);
     this.service.createPatient(this.newPatient).subscribe(async (res) => {
       const response = res as any;
-      if (response.status === 200 || response.status === 201) {
-        await this.router.navigateByUrl('/');
-      }  
       if ( response.body.code && response.body.code !== 500) {
         this.openSnackBar(response.body.message, 'Confirm');
         return;
@@ -114,6 +108,10 @@ export class PatientCreationComponent implements OnInit {
         this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
         return;
       }
+      if (response.status === 200 || response.status === 201) {
+        await this.router.navigateByUrl('/');
+        return;
+      }  
 
     });
   }

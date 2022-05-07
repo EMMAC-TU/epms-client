@@ -18,13 +18,13 @@ export class EmployeeCreationComponent implements OnInit {
     middleinitial: '',
     lastname: '',
     gender: '',
-    dateofbirth: undefined,
+    dateofbirth: '',
     email: '',
     mobilephone: '',
     workphone: '',
     homephone: '',
-    address1: '',
-    address2: '',
+    streetname1: '',
+    streetname2: '',
     city: '',
     state: '',
     zipcode: '',
@@ -70,8 +70,8 @@ export class EmployeeCreationComponent implements OnInit {
     console.log(this.newEmployee.mobilephone);
     console.log(this.newEmployee.workphone);
     console.log(this.newEmployee.homephone);
-    console.log(this.newEmployee.address1);
-    console.log(this.newEmployee.address2);
+    console.log(this.newEmployee.streetname1);
+    console.log(this.newEmployee.streetname2);
     console.log(this.newEmployee.city);
     console.log(this.newEmployee.state);
     console.log(this.newEmployee.zipcode);

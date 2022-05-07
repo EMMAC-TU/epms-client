@@ -22,12 +22,12 @@ export class DialogWindowComponent implements OnInit{
     this.title = this.data.title;
     this.typeConfirmation = this.data.confirm;
     
-    if (this.data.msg instanceof String) {
+    if (typeof this.data.msg === 'string') {
       this.isString = true;
     } else {
       let format: string = '';
       Object.entries(this.data.msg).forEach((value, index) => {
-        if (value[1] !== ''){
+        if (value[1] !== '' && value !== undefined){
           format = `${value[0]}: ${value[1]}`
           this.fields.push(format);
 

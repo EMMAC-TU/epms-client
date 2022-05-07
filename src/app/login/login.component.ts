@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
   contactAdmin() {
     this.dialog.open(DialogWindowComponent, {
       width: '400px',
-      data: {title: "Please Contact An Administrator To Reset Your Username or Password", confirm: 'Ok'}
+      data: {
+        title: "Reset Username/Password", 
+        confirm: 'Ok', 
+        msg: "Please Contact An Administrator To Reset Your Username or Password"
+      }
     });
 
   }
