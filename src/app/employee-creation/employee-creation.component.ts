@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { EmployeeCreation } from '../types/EmployeeCreation';
@@ -58,7 +58,6 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   onSubmit() {
-    
     console.log(this.newEmployee.userid);
     console.log(this.newEmployee.password);
     console.log(this.newEmployee.position);

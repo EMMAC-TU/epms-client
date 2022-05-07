@@ -20,7 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -52,7 +52,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDividerModule,
     HttpClientModule,
     MatSnackBarModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

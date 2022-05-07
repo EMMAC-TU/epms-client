@@ -1,13 +1,36 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
+import { PatientService } from '../services/patient.service';
+import { ValidatorService } from '../services/validator.service';
 import { PatientCreation } from '../types/PatientCreation';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
   selector: 'app-patient-creation',
   templateUrl: './patient-creation.component.html',
   styleUrls: ['./patient-creation.component.css']
 })
 export class PatientCreationComponent implements OnInit {
+  email = new FormControl('', [Validators.required, Validators.email]);
+  middleInit = new FormControl('', Validators.maxLength(1));
+  mobilePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  workPhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  homePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  nokNumber = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  dateofbirth = new FormControl();
+  matcher = new MyErrorStateMatcher();
+
   newPatient: PatientCreation = {
     firstname: '',
     middleinitial: '',
@@ -19,21 +42,28 @@ export class PatientCreationComponent implements OnInit {
     mobilephone: '',
     workphone: '',
     homephone: '',
-    address1: '',
-    address2: '',
+    streetname1: '',
+    streetname2: '',
     city: '',
     state: '',
     zipcode: '',
     country: '',
-    nokfirstname: '',
-    noklastname: '',
-    nokphone: '',
-    insurancename: '',
-    memberid: '',
-    groupnumber: '',
+    nok_firstname: '',
+    nok_lastname: '',
+    nok_mobilephone: '',
+    insurance_companyname: '',
+    insurance_groupnumber: '',
+    insurance_memberid: '',
   }
 
-  constructor(private dialog: MatDialog) { }
+  errorMessage = "Hi";
+
+
+  constructor(private dialog: MatDialog, 
+    private service: PatientService, 
+    private _snackBar: MatSnackBar,
+    private validator: ValidatorService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -46,6 +76,18 @@ export class PatientCreationComponent implements OnInit {
       this.newPatient.email)){
       return;
     }
+    if (
+      this.email.invalid ||
+      this.mobilePhone.invalid ||
+      this.workPhone.invalid ||
+      this.homePhone.invalid ||
+      this.middleInit.invalid ||
+      this.dateofbirth.getError('invalidDate')
+    ){
+      return;
+    }
+    //this.validator.validateDateOfBirth(this.newPatient.dateofbirth);
+
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '400px',
       data: {title: "Is the Following correct?", confirm: 'YesNo', msg: this.newPatient},
@@ -58,28 +100,35 @@ export class PatientCreationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.newPatient.firstname);
-    console.log(this.newPatient.middleinitial);
-    console.log(this.newPatient.lastname);
-    console.log(this.newPatient.gender);
-    console.log(this.newPatient.dateofbirth);
-    console.log(this.newPatient.outpatient);
-    console.log(this.newPatient.email);
-    console.log(this.newPatient.mobilephone);
-    console.log(this.newPatient.workphone);
-    console.log(this.newPatient.homephone);
-    console.log(this.newPatient.address1);
-    console.log(this.newPatient.address2);
-    console.log(this.newPatient.city);
-    console.log(this.newPatient.state);
-    console.log(this.newPatient.zipcode);
-    console.log(this.newPatient.country);
-    console.log(this.newPatient.nokfirstname);
-    console.log(this.newPatient.noklastname);
-    console.log(this.newPatient.nokphone);
-    console.log(this.newPatient.insurancename);
-    console.log(this.newPatient.memberid);
-    console.log(this.newPatient.groupnumber);
+    this.newPatient = this.validator.createRegistrationRequest(this.newPatient);
+    this.service.createPatient(this.newPatient).subscribe(async (res) => {
+      const response = res as any;
+      if (response.status === 200 || response.status === 201) {
+        await this.router.navigateByUrl('/');
+      }  
+      if ( response.body.code && response.body.code !== 500) {
+        this.openSnackBar(response.body.message, 'Confirm');
+        return;
+      }
+      if (response.body.code === 500) {
+        this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
+        return;
+      }
+
+    });
   }
 
+  isDOBValid() {
+    const dob = this.newPatient.dateofbirth ? this.newPatient.dateofbirth : "";
+    const isValid = this.validator.validateDateOfBirth(dob);
+    if (!isValid) {
+      this.dateofbirth.setErrors({
+        'invalidDate': true
+      })
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 4000});
+  }
 }
