@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { AdminService } from '../services/admin.service';
 import { ValidatorService } from '../services/validator.service';
@@ -37,7 +38,7 @@ export class EmployeeCreationComponent implements OnInit {
   hide=true;
   hide_confirm=true;
   illegalChar = '';
-  positions: string[] = ['Administrator', 'Doctor', 'Nurse', 'Vendor', 'Receptionist'];
+  positions: string[] = ['administrator', 'doctor', 'nurse', 'vendor', 'receptionist'];
   newEmployee: EmployeeCreation = {
     userid: '',
     password: '',
@@ -105,24 +106,27 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.newEmployee.userid);
-    console.log(this.newEmployee.password);
-    console.log(this.newEmployee.position);
-    console.log(this.newEmployee.firstname);
-    console.log(this.newEmployee.middleinitial);
-    console.log(this.newEmployee.lastname);
-    console.log(this.newEmployee.gender);
-    console.log(this.newEmployee.dateofbirth);
-    console.log(this.newEmployee.email);
-    console.log(this.newEmployee.mobilephone);
-    console.log(this.newEmployee.workphone);
-    console.log(this.newEmployee.homephone);
-    console.log(this.newEmployee.streetname1);
-    console.log(this.newEmployee.streetname2);
-    console.log(this.newEmployee.city);
-    console.log(this.newEmployee.state);
-    console.log(this.newEmployee.zipcode);
-    console.log(this.newEmployee.country);
+    this.newEmployee = this.validator.createRegistrationRequest(this.newEmployee);
+    this.service.createEmployee(this.newEmployee)
+    .pipe(
+      catchError( (err) => {
+        console.log(err.error);
+        if (err.error.code === 500) {
+          this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
+          return throwError(() => new Error('Something bad happened; please try again later.'));
+        }
+        this.openSnackBar(err.error.message, 'Confirm');
+        return throwError(() => new Error(err.error.message));
+      })
+    )
+    .subscribe(async (res) => {
+      const response = res as any;
+      if (response.status === 200 || response.status === 201) {
+        console.log(response.body.employee.employeeid);
+        await this.router.navigateByUrl('/');
+        return;
+      } 
+    });
   }
 
   isDOBValid() {
@@ -205,6 +209,10 @@ export class EmployeeCreationComponent implements OnInit {
         'illegalchar': true
       });
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 4000});
   }
 
 }

@@ -13,7 +13,7 @@ export class AdminService {
   constructor(private http: HttpClient, private cookies: CookieHelperService) { }
 
   createEmployee(newEmployee: EmployeeCreation): Observable<Object> {
-    this.headers = this.headers.set('Authorization', this.cookies.getPresenceToken());
+    this.headers = this.headers.set('Authorization', `Bearer ${this.cookies.getPresenceToken()}`);
     return this.http.post(`${environment.apiURL}/employees`, newEmployee, {
       headers: this.headers,
       observe: 'response'

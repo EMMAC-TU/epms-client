@@ -80,7 +80,7 @@
                 <mat-label>Position</mat-label>
                 <mat-select name="position" [(ngModel)]="newEmployee.position" required>
                     <mat-option *ngFor="let pos of positions" [value]="pos">
-                        {{ pos }}
+                        {{ pos.charAt(0).toUpperCase() + pos.slice(1) }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

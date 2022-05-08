@@ -27,7 +27,7 @@ export class DialogWindowComponent implements OnInit{
     } else {
       let format: string = '';
       Object.entries(this.data.msg).forEach((value, index) => {
-        if (value[1] !== '' && value !== undefined){
+        if (value[1] !== '' && value[1] !== undefined && value[0] !== 'password'){
           format = `${value[0]}: ${value[1]}`
           this.fields.push(format);
 

@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { PatientService } from '../services/patient.service';
 import { ValidatorService } from '../services/validator.service';
@@ -98,21 +99,24 @@ export class PatientCreationComponent implements OnInit {
 
   onSubmit() {
     this.newPatient = this.validator.createRegistrationRequest(this.newPatient);
-    this.service.createPatient(this.newPatient).subscribe(async (res) => {
+    this.service.createPatient(this.newPatient)
+    .pipe(
+      catchError( (err) => {
+        console.log(err.error);
+        if (err.error.code === 500) {
+          this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
+          return throwError(() => new Error('Something bad happened; please try again later.'));
+        }
+        this.openSnackBar(err.error.message, 'Confirm');
+        return throwError(() => new Error(err.error.message));
+      })
+    )
+    .subscribe(async (res) => {
       const response = res as any;
-      if ( response.body.code && response.body.code !== 500) {
-        this.openSnackBar(response.body.message, 'Confirm');
-        return;
-      }
-      if (response.body.code === 500) {
-        this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
-        return;
-      }
       if (response.status === 200 || response.status === 201) {
         await this.router.navigateByUrl('/');
         return;
       }  
-
     });
   }
 

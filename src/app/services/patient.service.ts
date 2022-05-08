@@ -14,10 +14,11 @@ export class PatientService {
   }
 
   createPatient(newPatient: PatientCreation): Observable<Object> {
-    this.headers = this.headers.set('Authorization', this.cookie.getPresenceToken())
-    console.log(newPatient);
-    
-    return this.http.post(`${environment.apiURL}/patients`, newPatient, { observe: "response", headers: this.headers });
+    this.headers = this.headers.set('Authorization', `Bearer ${this.cookie.getPresenceToken()}`);
+    return this.http.post(
+      `${environment.apiURL}/patients`, 
+      newPatient, 
+      { observe: "response", headers: this.headers });
   }
 
   updatePatient() {
