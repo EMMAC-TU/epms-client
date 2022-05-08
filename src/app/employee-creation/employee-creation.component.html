@@ -4,15 +4,77 @@
         <form>
             <mat-form-field class="user-id">
                 <mat-label>User Id</mat-label>
-                <input matInput placeholder="JohnDoe123" required name="userid" [(ngModel)]="newEmployee.userid">
+                <input 
+                matInput 
+                placeholder="JohnDoe123" 
+                required 
+                name="userid" 
+                [(ngModel)]="newEmployee.userid"
+                [formControl]="userid"
+                [errorStateMatcher]="matcher"
+                (change)="isUserIdValid()">
+                <mat-error *ngIf="userid.getError('containSpace')">
+                    Username cannot contain a space
+                </mat-error>
+                <mat-error *ngIf="userid.getError('lessthan5char')">
+                    Username must be longer than 5 characters
+                </mat-error>
+                <mat-error *ngIf="userid.getError('illegalchar')">
+                    {{ illegalChar }} is not a valid character
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="password">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput required name="password" [(ngModel)]="newEmployee.password">
+                <input 
+                [type]="hide ? 'password' : 'text'"
+                matInput 
+                required 
+                name="password" 
+                [(ngModel)]="newEmployee.password"
+                [formControl]="password"
+                [errorStateMatcher]="matcher"
+                (change)="isPasswordValid()">
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.getError('containspace')">
+                    Password cannot contain a space
+                </mat-error>
+                <mat-error *ngIf="password.getError('mustcontainnum')">
+                    Password must contain a number
+                </mat-error>
+                <mat-error *ngIf="password.getError('lessthan8char')">
+                    Password must be greater than 8 characters
+                </mat-error>
+                <mat-error *ngIf="password.getError('lowercaserequired')">
+                    Password must contain a lowercase character
+                </mat-error>
+                <mat-error *ngIf="password.getError('uppercaserequired')">
+                    Password must contain a uppercase character
+                </mat-error>
+                <mat-error *ngIf="password.getError('specialcharrequired')">
+                    Password must contain a special character
+                </mat-error>
+                <mat-error *ngIf="password.getError('passwordsdonotmatch')">
+                    Passwords do not match
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="confirm-password">
                 <mat-label>Confirm Password</mat-label>
-                <input type="password" matInput required>
+                <input 
+                [type]="hide_confirm ? 'password' : 'text'"
+                #confirm
+                matInput 
+                required
+                [formControl]="confirmPassword"
+                [errorStateMatcher]="matcher"
+                (change)="doPasswordsMatch(confirm.value)">
+                <button mat-icon-button matSuffix (click)="hide_confirm = !hide_confirm">
+                    <mat-icon>{{ hide_confirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="confirmPassword.getError('passwordsdonotmatch')">
+                    Passwords do not match
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="position">
                 <mat-label>Position</mat-label>
@@ -24,15 +86,34 @@
             </mat-form-field>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="John" required name="firstname" [(ngModel)]="newEmployee.firstname">
+                <input 
+                matInput 
+                placeholder="John" 
+                required 
+                name="firstname" 
+                [(ngModel)]="newEmployee.firstname">
             </mat-form-field>
             <mat-form-field class="middle-initial">
                 <mat-label>M.I.</mat-label>
-                <input matInput placeholder="J" name="middleinitial" [(ngModel)]="newEmployee.middleinitial">
+                <input 
+                matInput 
+                placeholder="J" 
+                name="middleinitial" 
+                [(ngModel)]="newEmployee.middleinitial"
+                [formControl]="middleInit"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="middleInit.invalid">
+                    Middle Initial Should Be Length 1
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="last-name">
                 <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Doe" required name="lastname" [(ngModel)]="newEmployee.lastname">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                required 
+                name="lastname" 
+                [(ngModel)]="newEmployee.lastname">
             </mat-form-field>
             <mat-form-field class="gender">
                 <mat-label>Gender</mat-label>
@@ -50,47 +131,120 @@
             </mat-form-field>
             <mat-form-field class="date-of-birth">
                 <mat-label>Date of Birth</mat-label>
-                <input type="date" matInput placeholder="Doe" required name="dateofbirth" [(ngModel)]="newEmployee.dateofbirth">
+                <input 
+                type="date" 
+                matInput 
+                placeholder="Doe" 
+                required 
+                name="dateofbirth" 
+                [(ngModel)]="newEmployee.dateofbirth"
+                [formControl]="dateofbirth"
+                [errorStateMatcher]="matcher"
+                (change)="isDOBValid()">
+                <mat-error *ngIf="dateofbirth.getError('invalidDate')">
+                    Please Enter a Valid Date of Birth
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Doe" required name="email" [(ngModel)]="newEmployee.email">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                required 
+                name="email" 
+                [(ngModel)]="newEmployee.email"
+                [formControl]="email"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="email.invalid">
+                    Please enter a valid email
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="mobile-phone">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput placeholder="4105551234" name="mobilephone" [(ngModel)]="newEmployee.mobilephone">
+                <input 
+                matInput 
+                placeholder="4105551234" 
+                name="mobilephone" 
+                [(ngModel)]="newEmployee.mobilephone"
+                [formControl]="mobilePhone"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="mobilePhone.invalid">
+                    Please enter a valid mobile number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="work-phone">
                 <mat-label>Work Number</mat-label>
-                <input matInput placeholder="4105551234" name="workphone" [(ngModel)]="newEmployee.workphone">
+                <input 
+                matInput 
+                placeholder="4105551234" 
+                name="workphone" 
+                [(ngModel)]="newEmployee.workphone"
+                [formControl]="workPhone"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="workPhone.invalid">
+                    Please enter a valid work number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="home-phone">
                 <mat-label>Home Number</mat-label>
-                <input matInput placeholder="4105551234" name="homephone" [(ngModel)]="newEmployee.homephone">
+                <input 
+                matInput 
+                placeholder="4105551234" 
+                name="homephone" 
+                [(ngModel)]="newEmployee.homephone"
+                [formControl]="homePhone"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="homePhone.invalid">
+                    Please enter a valid home number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
-                <input matInput placeholder="Doe" name="address1" [(ngModel)]="newEmployee.streetname1">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="address1" 
+                [(ngModel)]="newEmployee.streetname1">
             </mat-form-field>
             <mat-form-field class="street-address-2">
                 <mat-label>Street Address 2</mat-label>
-                <input matInput placeholder="Doe" name="address2" [(ngModel)]="newEmployee.streetname2">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="address2" 
+                [(ngModel)]="newEmployee.streetname2">
             </mat-form-field>
             <mat-form-field class="city">
                 <mat-label>City</mat-label>
-                <input matInput placeholder="Doe" name="city" [(ngModel)]="newEmployee.city">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="city" 
+                [(ngModel)]="newEmployee.city">
             </mat-form-field>
             <mat-form-field class="state">
                 <mat-label>State</mat-label>
-                <input matInput placeholder="Doe" name="state" [(ngModel)]="newEmployee.state">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="state" 
+                [(ngModel)]="newEmployee.state">
             </mat-form-field>
             <mat-form-field class="zip-code">
                 <mat-label>Zip Code</mat-label>
-                <input matInput placeholder="Doe" name="zipcode" [(ngModel)]="newEmployee.zipcode">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="zipcode" 
+                [(ngModel)]="newEmployee.zipcode">
             </mat-form-field>
             <mat-form-field class="country">
                 <mat-label>Country</mat-label>
-                <input matInput placeholder="Doe" name="country" [(ngModel)]="newEmployee.country">
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="country" 
+                [(ngModel)]="newEmployee.country">
             </mat-form-field>
             <br>
             <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>

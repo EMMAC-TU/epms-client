@@ -46,19 +46,18 @@ export class ValidatorService {
   }
 
   validatePassword(password: string): string {
-
     if (password.includes(' ')){
-      return 'Password cannot contain spaces';
+      return 'containspace';
     } else if (password.length < 8) {
-      return 'Password length must be greater than or equal to 8'
+      return 'lessthan8char';
     } else if (!(password.match('^(?=.*[0-9]).*$'))) {
-      return 'Password requires a number';
+      return 'mustcontainnum';
     } else if (!(password.match('^(?=.*[a-z]).*$'))) {
-      return 'Password requires a lowercase letter';
+      return 'lowercaserequired';
     } else if (!(password.match('^(?=.*[A-Z]).*$'))) {
-      return 'Uppercase letter required';
+      return 'uppercaserequired';
     } else if (!(password.match('^(?=.*[!@#$%^&()+=]).*$'))) {
-      return 'Password requires a special character';
+      return 'specialcharrequired';
     }
     return "";
   }
