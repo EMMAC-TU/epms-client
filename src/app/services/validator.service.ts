@@ -12,7 +12,7 @@ export class ValidatorService {
   createRegistrationRequest(req: EmployeeCreation | PatientCreation) {
     let obj: any = {};
     Object.entries(req).forEach((val) => {
-      if (val[1] !== '') {
+      if (val[1] !== '' && val[1] !== undefined) {
         obj[val[0]] = val[1];
       }
     });
