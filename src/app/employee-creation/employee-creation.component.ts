@@ -106,6 +106,7 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   onSubmit() {
+    
     this.newEmployee = this.validator.createRegistrationRequest(this.newEmployee);
     this.service.createEmployee(this.newEmployee)
     .pipe(
