@@ -3,6 +3,9 @@
     <p *ngFor="let field of fields">
       {{ field }}
     </p>
+    <p *ngIf="isString">
+      {{ data.msg }}
+    </p>
 </div>
 <div mat-dialog-actions *ngIf="typeConfirmation==='YesNo'">
   <button mat-button (click)="onNoClick()">No</button>

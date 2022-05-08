@@ -8,7 +8,15 @@
             </mat-form-field>
             <mat-form-field class="middle-initial">
                 <mat-label>M.I.</mat-label>
-                <input matInput name="middleinitial" [(ngModel)]="newPatient.middleinitial">
+                <input 
+                matInput 
+                name="middleinitial" 
+                [(ngModel)]="newPatient.middleinitial"
+                [formControl]="middleInit"
+                [errorStateMatcher]="matcher">
+                <mat-error *ngIf="middleInit.invalid">
+                    Middle Initial Should Be Length 1
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="last-name">
                 <mat-label>Last Name</mat-label>
@@ -28,9 +36,28 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field class="height">
+                <mat-label>Height (cm)</mat-label>
+                <input matInput name="height" [(ngModel)]="newPatient.height">
+            </mat-form-field>
+            <mat-form-field class="weight">
+                <mat-label>Weight (kg)</mat-label>
+                <input matInput name="weight" [(ngModel)]="newPatient.weight">
+            </mat-form-field>
             <mat-form-field class="date-of-birth">
                 <mat-label>Date of Birth</mat-label>
-                <input type="date" matInput required name="dateofbirth" [(ngModel)]="newPatient.dateofbirth">
+                <input 
+                type="date" 
+                matInput 
+                required 
+                name="dateofbirth" 
+                [(ngModel)]="newPatient.dateofbirth"
+                [errorStateMatcher]="matcher"
+                [formControl]="dateofbirth"
+                (change)="isDOBValid()">
+                <mat-error *ngIf="dateofbirth.getError('invalidDate')">
+                    Please Enter a Valid Date of Birth
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="out-patient">
                 <mat-label>Out Patient?</mat-label>
@@ -42,27 +69,72 @@
             </mat-form-field>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="JDoe123@gmail.com" required name="email" [(ngModel)]="newPatient.email">
+                <input 
+                matInput 
+                placeholder="JDoe123@gmail.com" 
+                required 
+                name="email" 
+                [(ngModel)]="newPatient.email"
+                [errorStateMatcher]="matcher"
+                [formControl]="email">
+                <mat-error *ngIf="email.invalid">
+                    Please enter a valid email
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="mobile-phone">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput placeholder="4105551234" name="mobilephone" [(ngModel)]="newPatient.mobilephone">
+                <input 
+                matInput 
+                placeholder="4105551234" 
+                name="mobilephone" 
+                [(ngModel)]="newPatient.mobilephone"
+                [errorStateMatcher]="matcher"
+                [formControl]="mobilePhone">
+                <mat-error *ngIf="mobilePhone.invalid">
+                    Please enter a valid mobile number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="work-phone">
                 <mat-label>Work Number</mat-label>
-                <input matInput placeholder="4105551234" name="workphone" [(ngModel)]="newPatient.workphone">
+                <input 
+                matInput 
+                placeholder="+14105551234" 
+                name="workphone" 
+                [(ngModel)]="newPatient.workphone"
+                [errorStateMatcher]="matcher"
+                [formControl]="workPhone">
+                <mat-error *ngIf="workPhone.invalid">
+                    Please enter a valid work number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="home-phone">
                 <mat-label>Home Number</mat-label>
-                <input matInput placeholder="4105551234" name="homephone" [(ngModel)]="newPatient.homephone">
+                <input 
+                matInput 
+                placeholder="4105551234"
+                name="homephone" 
+                [(ngModel)]="newPatient.homephone"
+                [errorStateMatcher]="matcher"
+                [formControl]="homePhone">
+                <mat-error *ngIf="homePhone.invalid">
+                    Please enter a valid home number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
-                <input matInput placeholder="Address 1 Lane" name="address1" [(ngModel)]="newPatient.address1">
+                <input 
+                matInput 
+                placeholder="Address 1 Lane" 
+                name="address1" 
+                [(ngModel)]="newPatient.streetname1">
             </mat-form-field>
             <mat-form-field class="street-address-2">
                 <mat-label>Street Address 2</mat-label>
-                <input matInput placeholder="Address 2 Street" name="address2" [(ngModel)]="newPatient.address2">
+                <input 
+                matInput 
+                placeholder="Address 2 Street" 
+                name="address2" 
+                [(ngModel)]="newPatient.streetname2">
             </mat-form-field>
             <mat-form-field class="city">
                 <mat-label>City</mat-label>
@@ -83,28 +155,37 @@
             <br>
             <mat-form-field class="nok-firstname">
                 <mat-label>Next of Kin First Name</mat-label>
-                <input matInput placeholder="Jane" name="nokfirstame" [(ngModel)]="newPatient.nokfirstname">
+                <input matInput placeholder="Jane" name="nokfirstame" [(ngModel)]="newPatient.nok_firstname">
             </mat-form-field>
             <mat-form-field class="nok-lastname">
                 <mat-label>Next of Kin Last Name</mat-label>
-                <input matInput placeholder="Doe" name="noklastname" [(ngModel)]="newPatient.noklastname">
+                <input matInput placeholder="Doe" name="noklastname" [(ngModel)]="newPatient.nok_lastname">
             </mat-form-field>
             <mat-form-field class="nok-phonenumber">
                 <mat-label>Next of Kin Phone Number</mat-label>
-                <input matInput placeholder="4105559876" name="nokphone" [(ngModel)]="newPatient.nokphone">
+                <input 
+                matInput 
+                placeholder="4105559876" 
+                name="nokphone" 
+                [(ngModel)]="newPatient.nok_mobilephone"
+                [errorStateMatcher]="matcher"
+                [formControl]="nokNumber">
+                <mat-error *ngIf="nokNumber.invalid">
+                    Please enter a valid number
+                </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field class="insurance-co-name">
                 <mat-label>Insurance Company</mat-label>
-                <input matInput placeholder="Insurance Co." name="insurancename" [(ngModel)]="newPatient.insurancename">
+                <input matInput placeholder="Insurance Co." name="insurancename" [(ngModel)]="newPatient.insurance_companyname">
             </mat-form-field>
             <mat-form-field class="member-id">
                 <mat-label>Member ID</mat-label>
-                <input matInput placeholder="123451232" name="memberid" [(ngModel)]="newPatient.memberid">
+                <input matInput placeholder="123451232" name="memberid" [(ngModel)]="newPatient.insurance_memberid">
             </mat-form-field>
             <mat-form-field class="group-num">
                 <mat-label>Group Number</mat-label>
-                <input matInput placeholder="D231231oe" name="groupnumber" [(ngModel)]="newPatient.groupnumber">
+                <input matInput placeholder="D231231oe" name="groupnumber" [(ngModel)]="newPatient.insurance_groupnumber">
             </mat-form-field>
             <br>
             <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>

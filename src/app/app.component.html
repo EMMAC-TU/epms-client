@@ -13,6 +13,11 @@
             <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Login</button>
             <mat-divider></mat-divider>
         </div>
+        <div class="temp-logout">
+            <button mat-button mat-raised-button color="primary" (click)="logout()">
+                Logout
+            </button>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar *ngIf="!isOnLogin()" color="primary">
