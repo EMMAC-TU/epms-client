@@ -18,6 +18,15 @@
     padding-top: 50px;
 }
 
+.search-form-container {
+    max-width: 1000px;
+    margin-top: 150px;
+    margin-left: 250px;
+    text-align: center;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
 .button-rows {
     margin-top: 250px;
 }

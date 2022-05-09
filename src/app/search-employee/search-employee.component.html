@@ -1,3 +1,28 @@
-<p>search-employee works!</p>
-<p>It's great!</p>
-<h1>This is so cool!</h1> 
+<div class="container">
+    <mat-card class="search-form-container">
+        <mat-card-title>Search for an Employee</mat-card-title>
+        <form>
+            <mat-form-field class="user-id">
+                <mat-label>Employee ID</mat-label>
+                <input matInput placeholder="0123456" name="employeeid" [(ngModel)]="employeeid">
+            </mat-form-field>
+            <mat-form-field class="user-id">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Doe" name="lastname" [(ngModel)]="lastname">
+            </mat-form-field>
+            <mat-form-field class="date-of-birth">
+                <mat-label>Date of Birth</mat-label>
+                <input type="date" matInput name="dateofbirth" [(ngModel)]="dateofbirth">
+            </mat-form-field>
+            <br/>
+            <button mat-raised-button color="primary"><mat-icon>search</mat-icon>Search</button> 
+        </form>
+    </mat-card>
+
+    <mat-card class="search-form-container">
+        <mat-card-title>Results</mat-card-title>
+        <h3>Data will go here!</h3>
+
+
+    </mat-card>
+</div>
