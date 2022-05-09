@@ -23,3 +23,9 @@ mat-card-title {
 form {
     max-width: 50vw;
 }
+.height {
+    max-width: 100px;
+}
+.weight {
+    max-width: 100px;
+}
