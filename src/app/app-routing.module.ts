@@ -5,6 +5,7 @@ import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 
 const routes: Routes = [
@@ -28,8 +29,8 @@ const routes: Routes = [
     canActivate: [ AuthGuard, ]
   },
   {
-    path: '**',
-    redirectTo: '/login'
+    path: '**', pathMatch: 'full',
+    component: PageNotFoundComponent
   }
 ];
 

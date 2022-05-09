@@ -10,10 +10,11 @@ import { CookieHelperService } from './cookie-helper.service';
 export class AuthService {
   headers = new HttpHeaders();
 
-  constructor(private http: HttpClient, private cookie: CookieHelperService) { }
+  constructor(
+    private http: HttpClient, 
+    private cookie: CookieHelperService) { }
 
   login(username: string, password: string): Observable<Object>{
-    console.log(`Sending request to ${environment.apiURL}/auth/login`)
     return this.http.post(`${environment.apiURL}/auth/login`,{
       userid: username,
       password: password
@@ -30,6 +31,7 @@ export class AuthService {
 
   logout() {
     this.cookie.deleteToken();
+    this.deleteHeaders();
   }
 
   isAuthorized(auth: string[]) {
@@ -53,7 +55,7 @@ export class AuthService {
     return this.headers;
   }
 
-  deleteHeaders() {
+  private deleteHeaders() {
     if (this.headers.has('Authorization')) {
       this.headers = this.headers.delete('Authorization');
     }
