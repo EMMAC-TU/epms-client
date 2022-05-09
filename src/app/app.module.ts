@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { OptionsComponent } from './options/options.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
     PatientCreationComponent,
     DialogWindowComponent,
     PageNotFoundComponent,
+    OptionsComponent,
   ],
   imports: [
     BrowserModule,

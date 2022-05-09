@@ -5,6 +5,7 @@ import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
+import { OptionsComponent } from './options/options.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
 
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'create-patient',
     component: PatientCreationComponent,
     canActivate: [ AuthGuard, ]
+  },
+  {
+    path: 'options',
+    component: OptionsComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: '**', pathMatch: 'full',
