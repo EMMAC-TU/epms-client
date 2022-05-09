@@ -1,7 +1,10 @@
 import { Location } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieHelperService } from './services/cookie-helper.service';
+import { AuthService } from './services/auth.service';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +15,41 @@ export class AppComponent {
   title = 'EPMS-client';
   onLoginPage = false;
   isSideBarOpen = true;
+  timeoutSnackBarOpen = false;
+  constructor(
+    private location: Location, 
+    private router: Router, 
+    private auth: AuthService,
+    private bnIdle: BnNgIdleService,
+    private _snackBar: MatSnackBar
+  ){}
 
-  constructor(private location: Location, private router: Router, private cookie: CookieHelperService){}
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()){
+      this.bnIdle.startWatching(600) //Timeouts afters 10 minutes
+      .pipe(
+        takeWhile(value => this.auth.isLoggedIn())
+      ).subscribe((isTimedOut: boolean) => {
+        if (isTimedOut) {
+          console.log("Timeout")
+          this.logout();
+          this._snackBar.open(
+            "Your session has timeout!",
+            "Confirm"
+          );          
+        }
+      });
+    }
+  }
 
   isOnLogin() {
     this.onLoginPage = this.location.path() === '/login';
     return this.onLoginPage;
   }
 
-  async logout() {
-    this.cookie.deleteToken();
-    await this.router.navigateByUrl('/login');
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/login')
   }
   goToHome() {
     this.router.navigate(['/'])
