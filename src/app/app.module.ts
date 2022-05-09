@@ -27,6 +27,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { OptionsComponent } from './options/options.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { OptionsComponent } from './options/options.component';
     DialogWindowComponent,
     PageNotFoundComponent,
     OptionsComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,
