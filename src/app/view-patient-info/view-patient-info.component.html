@@ -7,13 +7,18 @@
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
                 <input
-                [required]="isBeingUpdated"
                 matInput 
                 placeholder="John" 
                 name="firstname" 
                 [value]="patient.firstname"
                 [(ngModel)]="updatedFields.firstname"
-                [readonly]="!isBeingUpdated">
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="firstname"
+                (change)="requiredField(updatedFields.firstname, 'firstname')">
+                <mat-error *ngIf="firstname.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="middle-initial">
                 <mat-label>M.I.</mat-label>
@@ -26,21 +31,29 @@
                 [formControl]="middleInit"
                 [errorStateMatcher]="matcher">
             </mat-form-field>
+            <mat-error *ngIf="middleInit.invalid">
+                M.I. Needs Length 1
+            </mat-error>
             <mat-form-field class="last-name">
                 <mat-label>Last Name</mat-label>
                 <input 
                 matInput 
-                [required]="isBeingUpdated" 
                 name="lastname" 
                 [value]="patient.lastname"
                 [(ngModel)]="updatedFields.lastname"
-                [readonly]="!isBeingUpdated">
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="lastname"
+                (change)="requiredField(updatedFields.lastname, 'lastname')">
+                <mat-error *ngIf="lastname.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="gender">
                 <mat-label>Gender</mat-label>
                 <mat-select 
                 name="gender"
-                [(value)]="patient.gender"
+                [value]="patient.gender"
                 [(ngModel)]="updatedFields.gender">
                     <mat-option 
                     *ngIf="isBeingUpdated || patient.gender === 'Male'" 
@@ -90,24 +103,26 @@
                 <input *ngIf="isBeingUpdated"
                 type="date" 
                 matInput 
-                [required]="isBeingUpdated" 
                 name="dateofbirth" 
                 [(ngModel)]="updatedFields.dateofbirth"
                 [formControl]="dateofbirth"
-                [errorStateMatcher]="matcher">
+                [errorStateMatcher]="matcher"
+                (change)="isDOBValid()">
                 <input *ngIf="!isBeingUpdated"
                 type="text"
                 matInput
                 name="dateofbirth"
                 [(ngModel)]="patient.dateofbirth"
                 [readonly]="!isBeingUpdated">
+                <mat-error *ngIf="dateofbirth.hasError('invalidDate')">
+                    Please Enter a Valid Date of Birth
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="outpatient">
                 <mat-label>Out Patient?</mat-label>
                 <mat-select
                 name="outpatient" 
-                [(value)]="isOutPatient"
-                [(ngModel)]="updatedFields.outpatient">
+                value="Yes">
                     <mat-option value="Yes">
                         Yes
                     </mat-option>
@@ -118,13 +133,19 @@
                 <input 
                 matInput 
                 placeholder="JDoe123@gmail.com" 
-                [required]="isBeingUpdated" 
                 name="email" 
                 [value]="patient.email"
                 [(ngModel)]="updatedFields.email"
                 [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
                 [formControl]="email"
-                [errorStateMatcher]="matcher">
+                (change)="requiredField(updatedFields.email, 'email')">
+                <mat-error *ngIf="email.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
+                <mat-error *ngIf="email.invalid">
+                    Please enter a valid email
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="mobile-phone">
                 <mat-label>Mobile Number</mat-label>
@@ -137,6 +158,9 @@
                 [readonly]="!isBeingUpdated"
                 [errorStateMatcher]="matcher"
                 [formControl]="mobilePhone">
+                <mat-error *ngIf="mobilePhone.invalid">
+                    Please enter a valid mobile number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="work-phone">
                 <mat-label>Work Number</mat-label>
@@ -149,6 +173,9 @@
                 [readonly]="!isBeingUpdated"
                 [errorStateMatcher]="matcher"
                 [formControl]="workPhone">
+                <mat-error *ngIf="workPhone.invalid">
+                    Please enter a valid work number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="home-phone">
                 <mat-label>Home Number</mat-label>
@@ -161,6 +188,9 @@
                 [readonly]="!isBeingUpdated"
                 [errorStateMatcher]="matcher"
                 [formControl]="homePhone">
+                <mat-error *ngIf="homePhone.invalid">
+                    Please enter a valid home number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
@@ -254,6 +284,9 @@
                 [readonly]="!isBeingUpdated"
                 [errorStateMatcher]="matcher"
                 [formControl]="nokNumber">
+                <mat-error *ngIf="nokNumber.invalid">
+                    Please enter a valid number
+                </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field class="insurance-co-name">
@@ -290,10 +323,10 @@
             <button 
             *ngIf="!isBeingUpdated"
             mat-raised-button 
-            class="submit-button" 
+            class="update-button" 
             (click)="updateFields()"
             color="primary">
-                Update
+                Update Patient
             </button>
             <button
             *ngIf="isBeingUpdated"
@@ -302,6 +335,14 @@
             (click)="submit()"
             color="primary">
                 Submit
+            </button>
+            <button
+            *ngIf="isBeingUpdated"
+            mat-raised-button
+            class="go-back"
+            (click)="goBackandReset()"
+            color="primary">
+                Go Back
             </button>
     
         </form>

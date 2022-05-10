@@ -17,3 +17,7 @@ mat-card {
     height: 100vh;
     width: fit-content;
 }
+
+.go-back {
+    margin-left: 10px;
+}

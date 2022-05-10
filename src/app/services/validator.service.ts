@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
+import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
 
 @Injectable({
@@ -17,6 +19,21 @@ export class ValidatorService {
       }
     });
     return obj
+  }
+
+  validateGender(req: EmployeeCreation | PatientCreation | Patient | Employee) {
+    if (!req.gender) return;
+    switch(req.gender) {
+      case 'Male':
+        req.gender = "M";
+        break;
+      case 'Female':
+        req.gender = 'F';
+        break;
+      case 'Other':
+        req.gender = 'O';
+        break;
+    }
   }
 
   validateEmail(email: string): boolean{

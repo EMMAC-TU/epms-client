@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.username, this.password)
     .pipe(
       catchError((err) => {
-        console.log(err.error);
         if (err.error.code === 500) {
           this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));

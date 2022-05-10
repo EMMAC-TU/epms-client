@@ -23,7 +23,6 @@ export class AuthService {
 
   changePassword(currPassword: string, newPassword: string): Observable<Object>{
     this.headers = this.setAuthHeader(); 
-    console.log(`Current: ${currPassword}  new: ${newPassword}`)
     return this.http.patch(
       `${environment.apiURL}/auth/password`,
       {

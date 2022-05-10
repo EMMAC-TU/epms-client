@@ -48,18 +48,14 @@ export class UpdatePasswordComponent implements OnInit {
   }
 
   updatePassword() {
-    console.log("Hello?")
     if (
       this.confirmPasswordForm.hasError('passwordsDontMatch') ||
       this.newPasswordForm.hasError('invalidPassword') ||
       this.passwordForm.hasError('passwordsDontMatch')
     ) return;
-    console.log("testing")
     this.auth.changePassword(this.password, this.newPassword)
     .pipe(
       catchError( (err) => {
-        console.log("in error")
-        console.log(err);
         if (err.error.code === 500) {
           this._snackBar.open("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));
@@ -73,7 +69,6 @@ export class UpdatePasswordComponent implements OnInit {
         return throwError(() => new Error(err.error.message))
       })
     ).subscribe((value) => {
-      console.log("in sub")
       this.auth.logout();
       this.dialogRef.close();
       this.router.navigateByUrl('/login');
@@ -82,7 +77,6 @@ export class UpdatePasswordComponent implements OnInit {
       });
     });
 
-    console.log("After")
   }
 
   isPasswordValid() {

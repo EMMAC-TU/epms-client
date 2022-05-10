@@ -102,7 +102,6 @@ export class PatientCreationComponent implements OnInit {
     this.service.createPatient(this.newPatient)
     .pipe(
       catchError( (err) => {
-        console.log(err.error);
         if (err.error.code === 500) {
           this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));

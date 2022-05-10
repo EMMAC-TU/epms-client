@@ -24,8 +24,16 @@ export class PatientService {
       { observe: "response", headers: this.headers });
   }
 
-  updatePatient() {
-
+  updatePatient(patientid: string | undefined, updatedPatient: Partial<Patient>) {
+    this.headers = this.auth.setAuthHeader();
+    return this.http.patch(
+      `${environment.apiURL}/patients/${patientid}`,
+      updatedPatient,
+      {
+        headers: this.headers,
+        observe: 'response'
+      }
+    );
   }
 
   searchPatient() {
