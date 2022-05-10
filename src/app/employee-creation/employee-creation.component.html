@@ -37,23 +37,8 @@
                 <button mat-icon-button matSuffix (click)="hide = !hide">
                     <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="password.getError('containspace')">
-                    Password cannot contain a space
-                </mat-error>
-                <mat-error *ngIf="password.getError('mustcontainnum')">
-                    Password must contain a number
-                </mat-error>
-                <mat-error *ngIf="password.getError('lessthan8char')">
-                    Password must be greater than 8 characters
-                </mat-error>
-                <mat-error *ngIf="password.getError('lowercaserequired')">
-                    Password must contain a lowercase character
-                </mat-error>
-                <mat-error *ngIf="password.getError('uppercaserequired')">
-                    Password must contain a uppercase character
-                </mat-error>
-                <mat-error *ngIf="password.getError('specialcharrequired')">
-                    Password must contain a special character
+                <mat-error *ngIf="password.getError('invalidPassword')">
+                    {{ errMessage }}
                 </mat-error>
                 <mat-error *ngIf="password.getError('passwordsdonotmatch')">
                     Passwords do not match

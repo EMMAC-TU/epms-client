@@ -1,0 +1,13 @@
+
+.card {
+    margin: auto;
+    transform: translate(0, 150%);
+    text-align: center;
+    max-width: 450px;
+    max-height: fit-content;
+}
+
+.logout, .update-password {
+    margin: auto;
+    padding: 10px;
+}

@@ -31,7 +31,6 @@ export class AppComponent {
         takeWhile(value => this.auth.isLoggedIn())
       ).subscribe((isTimedOut: boolean) => {
         if (isTimedOut) {
-          console.log("Timeout")
           this.logout();
           this._snackBar.open(
             "Your session has timeout!",
@@ -49,8 +48,13 @@ export class AppComponent {
 
   logout() {
     this.auth.logout();
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login');
   }
+
+  openOptions() {
+    this.router.navigateByUrl('/options');
+  }
+
   goToHome() {
     this.router.navigate(['/'])
   }

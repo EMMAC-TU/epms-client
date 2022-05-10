@@ -38,6 +38,7 @@ export class EmployeeCreationComponent implements OnInit {
   hide=true;
   hide_confirm=true;
   illegalChar = '';
+  errMessage = '';
   positions: string[] = ['administrator', 'doctor', 'nurse', 'vendor', 'receptionist'];
   newEmployee: EmployeeCreation = {
     userid: '',
@@ -142,38 +143,11 @@ export class EmployeeCreationComponent implements OnInit {
 
   isPasswordValid() {
     const msg = this.validator.validatePassword(this.newEmployee.password);
-    switch(msg) {
-      case 'containspace':
-        this.password.setErrors({
-          'containspace': true
-        });
-        break;
-      case 'lessthan8char':
-        this.password.setErrors({
-          'lessthan8char': true
-        });
-        break;
-      case 'mustcontainnum':
-        this.password.setErrors({
-          'mustcontainnum': true
-        });
-        break;
-      case 'lowercaserequired':
-        this.password.setErrors({
-          'lowercaserequired': true
-        });
-        break;
-      case 'uppercaserequired':
-        this.password.setErrors({
-          'uppercaserequired': true
-        });
-        break;
-      case 'specialcharrequired':
-        this.password.setErrors({
-          'specialcharrequired': true
-        });
-        break;
-    }
+    if (msg.length === 0) return;
+    this.errMessage = msg;
+    this.password.setErrors({
+      'invalidPassword': true
+    });
   }
 
   doPasswordsMatch(confirm: string) {
