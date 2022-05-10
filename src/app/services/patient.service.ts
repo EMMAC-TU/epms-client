@@ -1,20 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
-import { CookieHelperService } from './cookie-helper.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
   headers = new HttpHeaders();
-  constructor(private http: HttpClient, private cookie: CookieHelperService) {
+  constructor(
+    private http: HttpClient, 
+    private auth: AuthService) {
   }
 
   createPatient(newPatient: PatientCreation): Observable<Object> {
-    this.headers = this.headers.set('Authorization', `Bearer ${this.cookie.getPresenceToken()}`);
+    this.headers = this.auth.setAuthHeader();
     return this.http.post(
       `${environment.apiURL}/patients`, 
       newPatient, 
@@ -29,8 +32,15 @@ export class PatientService {
 
   }
 
-  getAPatient() {
-
+  getAPatient(patientid: string) {
+    this.headers = this.auth.setAuthHeader();
+    return this.http.get<Patient>(
+      `${environment.apiURL}/patients/${patientid}`,
+      {
+        headers: this.headers,
+        observe: 'response'
+      }
+    );
   }
 
 }

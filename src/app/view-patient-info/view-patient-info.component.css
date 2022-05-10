@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.middle-initial {
+    max-width: 50px;
+}
+
+mat-form-field {
+    margin: 20px
+}
+mat-card {
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    width: fit-content;
+}
