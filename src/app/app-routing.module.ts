@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
+import { CreatePatientGuard } from './guard/create-patient.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { OptionsComponent } from './options/options.component';
@@ -27,7 +28,7 @@ const routes: Routes = [
   {
     path: 'create-patient',
     component: PatientCreationComponent,
-    canActivate: [ AuthGuard, ]
+    canActivate: [ AuthGuard, CreatePatientGuard ]
   },
   {
     path: 'options',
