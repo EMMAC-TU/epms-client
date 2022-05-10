@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { OptionsComponent } from './options/options.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
+import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'create-patient',
     component: PatientCreationComponent,
     canActivate: [ AuthGuard, CreatePatientGuard ]
+  },
+  {
+    path: 'patient/:id',
+    component: ViewPatientInfoComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'options',
