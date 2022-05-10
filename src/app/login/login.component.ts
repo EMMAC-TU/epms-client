@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   hide = true;
   username="";
   password="";
-  constructor(private dialog: MatDialog, 
+  constructor(
+    private dialog: MatDialog, 
     private auth: AuthService, 
     private cookie: CookieHelperService, 
     private router: Router,
