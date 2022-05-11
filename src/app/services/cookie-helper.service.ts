@@ -11,7 +11,7 @@ export class CookieHelperService {
   constructor(private cookie: CookieService) { }
 
   createPresenceToken(token: string) {
-    this.cookie.set(TOKEN_NAME, token, 1, '/');
+    this.cookie.set(TOKEN_NAME, token, .3, '/');
   }
 
   getPresenceToken(): string {

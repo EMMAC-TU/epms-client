@@ -29,7 +29,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
-
+import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +42,7 @@ import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.
     OptionsComponent,
     UpdatePasswordComponent,
     ViewPatientInfoComponent,
+    ViewUpdateEmployeeComponent,
   ],
   imports: [
     BrowserModule,
