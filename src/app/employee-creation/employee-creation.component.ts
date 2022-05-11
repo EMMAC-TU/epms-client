@@ -9,6 +9,7 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { AdminService } from '../services/admin.service';
 import { ValidatorService } from '../services/validator.service';
 import { EmployeeCreation } from '../types/EmployeeCreation';
+import { constants } from '../types/Constants';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,12 +29,13 @@ export class EmployeeCreationComponent implements OnInit {
   password = new FormControl('');
   confirmPassword = new FormControl('');
   middleInit = new FormControl('', Validators.maxLength(1));
-  mobilePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  workPhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  homePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  nokNumber = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  homePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  nokNumber = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   dateofbirth = new FormControl();
   matcher = new MyErrorStateMatcher();
+  MIN_ID_LEN = constants.MIN_ID_LEN;
 
   hide=true;
   hide_confirm=true;
@@ -166,13 +168,13 @@ export class EmployeeCreationComponent implements OnInit {
 
   isUserIdValid() {
     const userid = this.newEmployee.userid;
-    const illegalchar = userid.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
+    const illegalchar = userid.match(constants.ILLEGAL_CHAR_REGEX);
     this.illegalChar = "";
     if (userid.includes(' ')) {
       this.userid.setErrors({
         'containSpace': true
       });
-    } else if (userid.length < 5) {
+    } else if (userid.length < constants.MIN_ID_LEN) {
       this.userid.setErrors({
         'lessthan5char': true
       });

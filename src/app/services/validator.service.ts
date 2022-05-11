@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EmployeeCreation } from '../types/EmployeeCreation';
 import { PatientCreation } from '../types/PatientCreation';
+import { constants } from '../types/Constants';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ValidatorService {
   validateEmail(email: string): boolean{
     return !email
       .toLowerCase()
-      .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      .match(constants.EMAIL_REGEX)
   }
 
   validateDateOfBirth(dateofbirth: string): boolean {
@@ -48,7 +49,7 @@ export class ValidatorService {
   validatePassword(password: string): string {
     if (password.includes(' ')){
       return 'Password cannot contain a space';
-    } else if (password.length < 8) {
+    } else if (password.length < constants.MIN_PWD_LEN) {
       return 'Password must be greater than 8 characters';
     } else if (!(password.match('^(?=.*[0-9]).*$'))) {
       return 'Password must contain a number';
