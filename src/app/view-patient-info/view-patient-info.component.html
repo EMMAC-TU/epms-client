@@ -1,0 +1,350 @@
+<div class="container">
+    <mat-card class="view-form-container">
+        <mat-card-title>
+            <span *ngIf="isBeingUpdated">Update</span> Patient {{ patient.lastname }}'s Information
+        </mat-card-title>
+        <form>
+            <mat-form-field class="first-name">
+                <mat-label>First Name</mat-label>
+                <input
+                matInput 
+                placeholder="John" 
+                name="firstname" 
+                [value]="patient.firstname"
+                [(ngModel)]="updatedFields.firstname"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="firstname"
+                (change)="requiredField(updatedFields.firstname, 'firstname')">
+                <mat-error *ngIf="firstname.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="middle-initial">
+                <mat-label>M.I.</mat-label>
+                <input 
+                matInput 
+                name="middleinitial" 
+                [value]="patient.middleinitial"
+                [(ngModel)]="updatedFields.middleinitial"
+                [readonly]="!isBeingUpdated"
+                [formControl]="middleInit"
+                [errorStateMatcher]="matcher">
+            </mat-form-field>
+            <mat-error *ngIf="middleInit.invalid">
+                M.I. Needs Length 1
+            </mat-error>
+            <mat-form-field class="last-name">
+                <mat-label>Last Name</mat-label>
+                <input 
+                matInput 
+                name="lastname" 
+                [value]="patient.lastname"
+                [(ngModel)]="updatedFields.lastname"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="lastname"
+                (change)="requiredField(updatedFields.lastname, 'lastname')">
+                <mat-error *ngIf="lastname.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="gender">
+                <mat-label>Gender</mat-label>
+                <mat-select 
+                name="gender"
+                [value]="patient.gender"
+                [(ngModel)]="updatedFields.gender">
+                    <mat-option 
+                    *ngIf="isBeingUpdated || patient.gender === 'Male'" 
+                    value="Male">
+                        Male
+                    </mat-option>
+                    <mat-option 
+                    *ngIf="isBeingUpdated || patient.gender === 'Female'" 
+                    value="Female">
+                        Female
+                    </mat-option>
+                    <mat-option 
+                    *ngIf="isBeingUpdated || patient.gender === 'Other'" 
+                    value="Other">
+                        Other
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="creation-date">
+                <mat-label>Creation Date</mat-label>
+                <input
+                matInput
+                name="creation-date"
+                [(ngModel)]="patient.creationdate"
+                [readonly]="true">
+            </mat-form-field>
+            <mat-form-field class="height">
+                <mat-label>Height (cm)</mat-label>
+                <input 
+                matInput 
+                name="height" 
+                [value]="patient.height"
+                [(ngModel)]="updatedFields.height"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="weight">
+                <mat-label>Weight (kg)</mat-label>
+                <input 
+                matInput 
+                name="weight" 
+                [value]="patient.weight"
+                [(ngModel)]="updatedFields.weight"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="date-of-birth">
+                <mat-label>Date of Birth</mat-label>
+                <input *ngIf="isBeingUpdated"
+                type="date" 
+                matInput 
+                name="dateofbirth" 
+                [(ngModel)]="updatedFields.dateofbirth"
+                [formControl]="dateofbirth"
+                [errorStateMatcher]="matcher"
+                (change)="isDOBValid()">
+                <input *ngIf="!isBeingUpdated"
+                type="text"
+                matInput
+                name="dateofbirth"
+                [(ngModel)]="patient.dateofbirth"
+                [readonly]="!isBeingUpdated">
+                <mat-error *ngIf="dateofbirth.hasError('invalidDate')">
+                    Please Enter a Valid Date of Birth
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="outpatient">
+                <mat-label>Out Patient?</mat-label>
+                <mat-select
+                name="outpatient" 
+                value="Yes">
+                    <mat-option value="Yes">
+                        Yes
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="email">
+                <mat-label>Email</mat-label>
+                <input 
+                matInput 
+                placeholder="JDoe123@gmail.com" 
+                name="email" 
+                [value]="patient.email"
+                [(ngModel)]="updatedFields.email"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="email"
+                (change)="requiredField(updatedFields.email, 'email')">
+                <mat-error *ngIf="email.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
+                <mat-error *ngIf="email.invalid">
+                    Please enter a valid email
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mobile-phone">
+                <mat-label>Mobile Number</mat-label>
+                <input 
+                matInput 
+                placeholder="4105551234" 
+                name="mobilephone" 
+                [value]="patient.mobilephone"
+                [(ngModel)]="updatedFields.mobilephone"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="mobilePhone">
+                <mat-error *ngIf="mobilePhone.invalid">
+                    Please enter a valid mobile number
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="work-phone">
+                <mat-label>Work Number</mat-label>
+                <input 
+                matInput 
+                placeholder="+14105551234" 
+                name="workphone" 
+                [value]="patient.workphone"
+                [(ngModel)]="updatedFields.workphone"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="workPhone">
+                <mat-error *ngIf="workPhone.invalid">
+                    Please enter a valid work number
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="home-phone">
+                <mat-label>Home Number</mat-label>
+                <input 
+                matInput 
+                placeholder="4105551234"
+                name="homephone" 
+                [value]="patient.homephone"
+                [(ngModel)]="updatedFields.homephone"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="homePhone">
+                <mat-error *ngIf="homePhone.invalid">
+                    Please enter a valid home number
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="street-address-1">
+                <mat-label>Street Address 1</mat-label>
+                <input 
+                matInput 
+                placeholder="Address 1 Lane" 
+                name="address1" 
+                [value]="patient.streetname1"
+                [(ngModel)]="updatedFields.streetname1"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="street-address-2">
+                <mat-label>Street Address 2</mat-label>
+                <input 
+                matInput 
+                placeholder="Address 2 Street" 
+                name="address2" 
+                [value]="patient.streetname2"
+                [(ngModel)]="updatedFields.streetname2"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="city">
+                <mat-label>City</mat-label>
+                <input 
+                matInput 
+                placeholder="New York" 
+                name="city" 
+                [value]="patient.city"
+                [(ngModel)]="updatedFields.city"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="state">
+                <mat-label>State</mat-label>
+                <input 
+                matInput 
+                placeholder="New York" 
+                name="state"
+                [value]="patient.state" 
+                [(ngModel)]="updatedFields.state"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="zip-code">
+                <mat-label>Zip Code</mat-label>
+                <input 
+                matInput 
+                placeholder="21345" 
+                name="zipcode" 
+                [value]="patient.zipcode"
+                [(ngModel)]="updatedFields.zipcode"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="country">
+                <mat-label>Country</mat-label>
+                <input 
+                matInput 
+                placeholder="United States" 
+                name="country" 
+                [value]="patient.country"
+                [(ngModel)]="updatedFields.country"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="nok-firstname">
+                <mat-label>Next of Kin First Name</mat-label>
+                <input 
+                matInput 
+                placeholder="Jane" 
+                name="nokfirstame" 
+                [value]="patient.nok_firstname"
+                [(ngModel)]="updatedFields.nok_firstname"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="nok-lastname">
+                <mat-label>Next of Kin Last Name</mat-label>
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="noklastname" 
+                [value]="patient.nok_lastname"
+                [(ngModel)]="updatedFields.nok_lastname"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="nok-phonenumber">
+                <mat-label>Next of Kin Phone Number</mat-label>
+                <input 
+                matInput 
+                placeholder="4105559876" 
+                name="nokphone" 
+                [value]="patient.nok_mobilephone"
+                [(ngModel)]="updatedFields.nok_mobilephone"
+                [readonly]="!isBeingUpdated"
+                [errorStateMatcher]="matcher"
+                [formControl]="nokNumber">
+                <mat-error *ngIf="nokNumber.invalid">
+                    Please enter a valid number
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="insurance-co-name">
+                <mat-label>Insurance Company</mat-label>
+                <input 
+                matInput 
+                placeholder="Insurance Co." 
+                name="insurancename" 
+                [value]="patient.insurance_companyname"
+                [(ngModel)]="updatedFields.insurance_companyname"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="member-id">
+                <mat-label>Member ID</mat-label>
+                <input 
+                matInput 
+                placeholder="123451232" 
+                name="memberid" 
+                [value]="patient.insurance_memberid"
+                [(ngModel)]="updatedFields.insurance_memberid"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <mat-form-field class="group-num">
+                <mat-label>Group Number</mat-label>
+                <input 
+                matInput 
+                placeholder="D231231oe" 
+                name="groupnumber" 
+                [value]="patient.insurance_groupnumber"
+                [(ngModel)]="updatedFields.insurance_groupnumber"
+                [readonly]="!isBeingUpdated">
+            </mat-form-field>
+            <br>
+            <button 
+            *ngIf="!isBeingUpdated"
+            mat-raised-button 
+            class="update-button" 
+            (click)="updateFields()"
+            color="primary">
+                Update Patient
+            </button>
+            <button
+            *ngIf="isBeingUpdated"
+            mat-raised-button
+            class="submit-button"
+            (click)="submit()"
+            color="primary">
+                Submit
+            </button>
+            <button
+            *ngIf="isBeingUpdated"
+            mat-raised-button
+            class="go-back"
+            (click)="goBackandReset()"
+            color="primary">
+                Go Back
+            </button>
+    
+        </form>
+    </mat-card>
+</div>

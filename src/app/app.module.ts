@@ -28,7 +28,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BnNgIdleService } from 'bn-ng-idle';
 import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
-
+import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
+import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,8 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
     PageNotFoundComponent,
     OptionsComponent,
     UpdatePasswordComponent,
+    ViewPatientInfoComponent,
+    ViewUpdateEmployeeComponent,
   ],
   imports: [
     BrowserModule,

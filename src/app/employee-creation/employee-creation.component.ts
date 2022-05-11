@@ -112,7 +112,6 @@ export class EmployeeCreationComponent implements OnInit {
     this.service.createEmployee(this.newEmployee)
     .pipe(
       catchError( (err) => {
-        console.log(err.error);
         if (err.error.code === 500) {
           this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));
@@ -124,7 +123,6 @@ export class EmployeeCreationComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        console.log(response.body.employee.employeeid);
         await this.router.navigateByUrl('/');
         return;
       } 
@@ -142,7 +140,8 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   isPasswordValid() {
-    const msg = this.validator.validatePassword(this.newEmployee.password);
+    const pwrd = this.newEmployee.password ? this.newEmployee.password : "";
+    const msg = this.validator.validatePassword(pwrd);
     if (msg.length === 0) return;
     this.errMessage = msg;
     this.password.setErrors({
@@ -165,7 +164,7 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   isUserIdValid() {
-    const userid = this.newEmployee.userid;
+    const userid = this.newEmployee.userid ? this.newEmployee.userid : "";
     const illegalchar = userid.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
     this.illegalChar = "";
     if (userid.includes(' ')) {

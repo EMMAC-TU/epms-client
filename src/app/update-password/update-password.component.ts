@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, map, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { AuthService } from '../services/auth.service';
 import { ValidatorService } from '../services/validator.service';
+import { Employee } from '../types/Employee';
+import { EmployeeCreation } from '../types/EmployeeCreation';
+import { Patient } from '../types/Patient';
+import { PatientCreation } from '../types/PatientCreation';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -41,25 +45,24 @@ export class UpdatePasswordComponent implements OnInit {
     private validator: ValidatorService,
     private auth: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: { employeeid?: string }
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
   updatePassword() {
-    console.log("Hello?")
     if (
       this.confirmPasswordForm.hasError('passwordsDontMatch') ||
       this.newPasswordForm.hasError('invalidPassword') ||
       this.passwordForm.hasError('passwordsDontMatch')
     ) return;
-    console.log("testing")
-    this.auth.changePassword(this.password, this.newPassword)
+  
+    this.auth.changePassword(this.password, this.newPassword, this.data.employeeid)
     .pipe(
       catchError( (err) => {
-        console.log("in error")
-        console.log(err);
         if (err.error.code === 500) {
           this._snackBar.open("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));
@@ -73,16 +76,21 @@ export class UpdatePasswordComponent implements OnInit {
         return throwError(() => new Error(err.error.message))
       })
     ).subscribe((value) => {
-      console.log("in sub")
-      this.auth.logout();
-      this.dialogRef.close();
-      this.router.navigateByUrl('/login');
-      this._snackBar.open('Password Successfully Changed! Please Sign Back In', 'Confirm', {
-        duration: 5000
-      });
+      if (this.data.employeeid) { // If an admin is updated a users password
+        this.dialogRef.close();
+        this._snackBar.open('Password Successfully Changed', 'Confirm', {
+          duration: 5000
+        });
+      } else { //If a user is updated their own password
+        this.auth.logout();
+        this.dialogRef.close();
+        this.router.navigateByUrl('/login');
+        this._snackBar.open('Password Successfully Changed! Please Sign Back In', 'Confirm', {
+          duration: 5000
+        });
+      }
     });
 
-    console.log("After")
   }
 
   isPasswordValid() {

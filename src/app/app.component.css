@@ -1,9 +1,18 @@
 mat-sidenav {
     width: 200px;
     text-align: center;
+    justify-content: center;
+    display: flex;
 }
+
+.vertical-spacer {
+    display: flex;
+    margin-top: 30vh;
+}
+
 .button-rows {
-    margin-top: 250px;
+    margin-top: auto;
+    flex:auto;
 }
 
 .hamburger-button {
@@ -13,7 +22,6 @@ mat-sidenav {
 .nav-button{
     margin-top: 20px;
     margin-bottom: 20px;
-    position: relative;
     width: auto;
 }
 
@@ -23,7 +31,6 @@ mat-sidenav {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #eee;
 }
 
 .spacer {
@@ -31,6 +38,9 @@ mat-sidenav {
 }
 
 .options {
-    margin-top: 25vh;
     flex: auto;
+}
+
+mat-sidenav-content {
+    background-color: rgb(208, 208, 208);
 }
