@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
+import { AuthService } from './auth.service';
 import { CookieHelperService } from './cookie-helper.service';
 
 @Injectable({
@@ -11,10 +12,11 @@ import { CookieHelperService } from './cookie-helper.service';
 })
 export class AdminService {
   headers: HttpHeaders = new HttpHeaders();
-  constructor(private http: HttpClient, private cookies: CookieHelperService) { }
+
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   createEmployee(newEmployee: EmployeeCreation): Observable<Object> {
-    this.setAuthHeader();
+    this.headers = this.auth.setAuthHeader();
     return this.http.post(`${environment.apiURL}/employees`, newEmployee, {
       headers: this.headers,
       observe: 'response'
@@ -36,7 +38,7 @@ export class AdminService {
     if (params.limit) query.push(`limit=${params.limit}`);
     if (params.page) query.push(`page=${params.page}`);
 
-    this.setAuthHeader();
+    this.headers = this.auth.setAuthHeader();
     return this.http.get(`${environment.apiURL}/employees/search?${query.join('&')}`, {
       headers: this.headers,
       observe: 'response'
@@ -44,7 +46,7 @@ export class AdminService {
   }
 
   getEmployee(employeeid: string) {
-    this.setAuthHeader();
+    this.headers = this.auth.setAuthHeader();
     return this.http.get(
       `${environment.apiURL}/employees/${employeeid}`,
       {
@@ -55,7 +57,7 @@ export class AdminService {
   }
 
   updateEmployee(employeeid: string, employee: Partial<Employee>) {
-    this.setAuthHeader();
+    this.headers = this.auth.setAuthHeader();
     return this.http.patch(
       `${environment.apiURL}/employee/${employeeid}`,
       employee,
@@ -66,9 +68,4 @@ export class AdminService {
     );
   }
 
-  setAuthHeader() {
-    if (!this.headers.has('Authorization')) {
-      this.headers = this.headers.set('Authorization', `Bearer ${this.cookies.getPresenceToken()}`);
-    }
-  }
 }

@@ -25,6 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { OptionsComponent } from './options/options.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     EmployeeCreationComponent,
     PatientCreationComponent,
     DialogWindowComponent,
+    PageNotFoundComponent,
+    OptionsComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

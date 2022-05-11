@@ -13,9 +13,10 @@
             <button mat-button class="nav-button" [routerLink]="['/login']"  color="primary">Login</button>
             <mat-divider></mat-divider>
         </div>
-        <div class="temp-logout">
-            <button mat-button mat-raised-button color="primary" (click)="logout()">
-                Logout
+        <span class="vertical-spacer"></span>
+        <div class="options">
+            <button mat-button (click)="openOptions()">
+                <mat-icon>settings</mat-icon>
             </button>
         </div>
     </mat-sidenav>
@@ -25,6 +26,7 @@
                 <mat-icon>menu</mat-icon>
             </button>
             <span>Electronic Health Record System</span>
+            <span class="spacer"></span>
             <button mat-icon-button class="home-icon" (click)="goToHome()">
                 <mat-icon>home</mat-icon>
             </button>
