@@ -16,7 +16,7 @@
                     Username cannot contain a space
                 </mat-error>
                 <mat-error *ngIf="employeeid.getError('lessthan5char')">
-                    Username must be at least {{MIN_ID_LEN}} characters
+                    Username must be at least {{ MIN_ID_LEN }} characters
                 </mat-error>
                 <mat-error *ngIf="employeeid.getError('illegalchar')">
                     {{ illegalChar }} is not a valid character
@@ -47,7 +47,10 @@
                 </mat-error>
             </mat-form-field>
             <br/>
-            <button mat-raised-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon>Search</button> 
+            <button mat-raised-button color="primary" (click)="submitSearch()">
+                <mat-icon>search</mat-icon>
+                Search
+            </button> 
         </form>
     </mat-card>
 
