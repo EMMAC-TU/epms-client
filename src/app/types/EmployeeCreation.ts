@@ -1,13 +1,14 @@
 export interface EmployeeCreation {
-    userid: string;
-    password: string;
-    firstname: string;
+    userid?: string;
+    password?: string;
+    firstname?: string;
     middleinitial?: string;
-    lastname: string;
-    gender: string;
-    dateofbirth: string;
+    lastname?: string;
+    gender?: string;
+    dateofbirth?: string;
+    enddate?: string;
     email?: string;
-    position: string;
+    position?: string;
     streetname1?: string,
     city?: string,
     state?: string,

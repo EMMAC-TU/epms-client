@@ -56,10 +56,10 @@ export class AdminService {
     );
   }
 
-  updateEmployee(employeeid: string, employee: Partial<Employee>) {
+  updateEmployee(employeeid: string | undefined, employee: Partial<Employee>) {
     this.headers = this.auth.setAuthHeader();
     return this.http.patch(
-      `${environment.apiURL}/employee/${employeeid}`,
+      `${environment.apiURL}/employees/${employeeid}`,
       employee,
       {
         headers: this.headers,

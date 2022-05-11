@@ -27,7 +27,8 @@ export class OptionsComponent implements OnInit {
   updatePassword() {
     let dialogRef = this.dialog.open(UpdatePasswordComponent, {
       height: '600px',
-      width: '600px'
+      width: '600px',
+      data: {}
     });
   }
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
 import { Patient } from '../types/Patient';
@@ -10,6 +11,26 @@ import { PatientCreation } from '../types/PatientCreation';
 export class ValidatorService {
 
   constructor() { }
+
+  isUserIdValid(form: FormControl, userid?: string) {
+    const id = userid ? userid : "";
+    const illegalchar = id.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
+    if (id.includes(' ')) {
+      form.setErrors({
+        'containSpace': true
+      });
+    } else if (id.length < 5) {
+      form.setErrors({
+        'lessthan5char': true
+      });
+    } else if (illegalchar){
+      form.setErrors({
+        'illegalchar': true
+      });
+      return illegalchar;
+    }
+    return [];
+  }
 
   createRegistrationRequest(req: EmployeeCreation | PatientCreation) {
     let obj: any = {};
@@ -47,6 +68,12 @@ export class ValidatorService {
     const MAX_DATE = new Date();
     const dob = new Date(dateofbirth);
     return dob >= MIN_DATE && dob <= MAX_DATE;
+  }
+
+  validateEndDate(enddate: string): boolean {
+    const MIN_DATE = new Date();
+    const ENDDATE = new Date(enddate);
+    return ENDDATE.getDate()+1 >= MIN_DATE.getDate();
   }
 
   validateText(fields?: string): { isValid: boolean, message: string } {

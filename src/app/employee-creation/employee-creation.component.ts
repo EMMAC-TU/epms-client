@@ -140,7 +140,8 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   isPasswordValid() {
-    const msg = this.validator.validatePassword(this.newEmployee.password);
+    const pwrd = this.newEmployee.password ? this.newEmployee.password : "";
+    const msg = this.validator.validatePassword(pwrd);
     if (msg.length === 0) return;
     this.errMessage = msg;
     this.password.setErrors({
@@ -163,7 +164,7 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   isUserIdValid() {
-    const userid = this.newEmployee.userid;
+    const userid = this.newEmployee.userid ? this.newEmployee.userid : "";
     const illegalchar = userid.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
     this.illegalChar = "";
     if (userid.includes(' ')) {
