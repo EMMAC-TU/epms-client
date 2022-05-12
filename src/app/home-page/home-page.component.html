@@ -1,1 +1,71 @@
-<h1>Hello</h1>
+<mat-card>
+    <mat-card-title>Welcome To The Electronic Health Record System's Employee Patient Management Service!</mat-card-title>
+    <mat-card-content>
+        <p>These are the things that each position can do:</p>
+        <table mat-table [dataSource]="dataSource">
+            <!-- Position Column -->
+           <ng-container matColumnDef="Position">
+                <th mat-header-cell *matHeaderCellDef>Position</th>
+                <td mat-cell *matCellDef="let employee"> {{ employee.position }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="View Patient Info">
+            <th mat-header-cell *matHeaderCellDef>View Patient Info</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.ViewPatientInfo }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Update Patient Info">
+            <th mat-header-cell *matHeaderCellDef>Update Patient Info</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.UpdatePatientInfo }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Create Patient Record">
+            <th mat-header-cell *matHeaderCellDef>Create Patient Record</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.CreatePatientRecord }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Search Patient Record">
+            <th mat-header-cell *matHeaderCellDef>Search Patient Record</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.SearchPatientRecord }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="View Employee Info">
+            <th mat-header-cell *matHeaderCellDef>View Employee Info</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.ViewEmployeeInfo }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Update Employee Info">
+            <th mat-header-cell *matHeaderCellDef>Update Employee Info</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.UpdateEmployeeInfo }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Create Employee Record">
+            <th mat-header-cell *matHeaderCellDef>Create Employee Record</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.CreateEmployeeRecord }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Search Employee Record">
+            <th mat-header-cell *matHeaderCellDef>Search Employee Record</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.SearchEmployeeRecord }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Update Password">
+            <th mat-header-cell *matHeaderCellDef>Update Password</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.UpdatePassword }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Login">
+            <th mat-header-cell *matHeaderCellDef>Login</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.Login }}</td>
+           </ng-container>
+
+           <ng-container matColumnDef="Logout">
+            <th mat-header-cell *matHeaderCellDef>Logout</th>
+            <td mat-cell *matCellDef="let employee"> {{ employee.Logout }}</td>
+           </ng-container>
+            
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
