@@ -68,8 +68,7 @@ export class EmployeeCreationComponent implements OnInit {
     private validator: ValidatorService,
     private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openDialog() {
     // Check required fields
