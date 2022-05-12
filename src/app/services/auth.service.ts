@@ -39,6 +39,7 @@ export class AuthService {
 
   checkCookieHeader() {
     let cookieHeader = this.headers.get('Cookie');
+    console.log(`Cookie Header: ${cookieHeader}`)
     if (!cookieHeader) {
       return false;
     }
@@ -48,7 +49,7 @@ export class AuthService {
     }
 
     cookieHeader = cookieHeader.substring('presence'.length, cookieHeader.length);
-
+    console.log(`cookieheader is: ${cookieHeader}`);
     this.cookie.createPresenceToken(cookieHeader);
     return true;
   }
@@ -77,8 +78,13 @@ export class AuthService {
   }
 
   setAuthHeader() {
+    let cookie = this.cookie.getPresenceToken()
     if (!this.headers.has('Authorization')) {
-      this.headers = this.headers.set('Authorization', `Bearer ${this.cookie.getPresenceToken()}`);
+      if (!cookie) {
+        this.checkCookieHeader();
+        cookie = this.cookie.getPresenceToken();
+      }
+      this.headers = this.headers.set('Authorization', `Bearer ${cookie}`);
     }
     return this.headers;
   }
