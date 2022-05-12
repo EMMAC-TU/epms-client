@@ -30,6 +30,8 @@ import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
+import { MatTableModule } from '@angular/material/table'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +65,8 @@ import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-
     HttpClientModule,
     MatSnackBarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]

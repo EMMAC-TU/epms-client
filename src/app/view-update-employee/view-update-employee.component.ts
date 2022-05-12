@@ -63,7 +63,6 @@ export class ViewUpdateEmployeeComponent implements OnInit {
         ).subscribe(
           (value) => {
             const res = (value.body as any).employee as Employee;
-            console.log(res);
             this.setFields(res);
           }
         )

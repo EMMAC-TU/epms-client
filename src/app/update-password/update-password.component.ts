@@ -50,7 +50,6 @@ export class UpdatePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   updatePassword() {

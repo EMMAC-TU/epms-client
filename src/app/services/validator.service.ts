@@ -33,6 +33,7 @@ export class ValidatorService {
   }
 
   createRegistrationRequest(req: EmployeeCreation | PatientCreation) {
+    this.validateGender(req);
     let obj: any = {};
     Object.entries(req).forEach((val) => {
       if (val[1] !== '' && val[1] !== undefined) {
