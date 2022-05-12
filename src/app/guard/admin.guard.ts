@@ -23,7 +23,7 @@ export class AdminGuard implements CanActivate {
         if (res.isAuthorized) return true;
         this.route.navigateByUrl('/');
         window.alert("You are not authorized.");
-        return true;
+        return false;
       })
     );
   }

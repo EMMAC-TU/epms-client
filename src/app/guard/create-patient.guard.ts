@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { PERMISSIONS } from '../types/Permissions';
@@ -8,7 +8,7 @@ import { PERMISSIONS } from '../types/Permissions';
   providedIn: 'root'
 })
 export class CreatePatientGuard implements CanActivate {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private route: Router) {}
   
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -21,7 +21,10 @@ export class CreatePatientGuard implements CanActivate {
       }),
       map((value) => {
         const res = value.body as any;
-        return res.isAuthorized;
+        if (res.isAuthorized) return true;
+        this.route.navigateByUrl('/');
+        window.alert("You are not authorized.");
+        return false;
       })
     );
   }
