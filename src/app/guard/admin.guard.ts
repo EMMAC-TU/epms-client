@@ -20,7 +20,10 @@ export class AdminGuard implements CanActivate {
       }),
       map((value) => {
         const res = value.body as any;
-        return res.isAuthorized;
+        if (res.isAuthorized) return true;
+        this.route.navigateByUrl('/');
+        window.alert("You are not authorized.");
+        return true;
       })
     );
   }

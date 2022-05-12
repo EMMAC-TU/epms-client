@@ -48,7 +48,7 @@ export class AuthService {
       return false;
     }
 
-    cookieHeader = cookieHeader.substring('presence'.length, cookieHeader.length);
+    cookieHeader = cookieHeader.substring('presence='.length, cookieHeader.length);
     console.log(`cookieheader is: ${cookieHeader}`);
     this.cookie.createPresenceToken(cookieHeader);
     return true;
@@ -78,7 +78,7 @@ export class AuthService {
   }
 
   setAuthHeader() {
-    let cookie = this.cookie.getPresenceToken()
+    let cookie = this.cookie.getPresenceToken();
     if (!this.headers.has('Authorization')) {
       if (!cookie) {
         this.checkCookieHeader();
