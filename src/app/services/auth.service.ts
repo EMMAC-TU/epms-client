@@ -37,6 +37,22 @@ export class AuthService {
       });
   }
 
+  checkCookieHeader() {
+    let cookieHeader = this.headers.get('Cookie');
+    if (!cookieHeader) {
+      return false;
+    }
+
+    if (!cookieHeader.startsWith('presence')) {
+      return false;
+    }
+
+    cookieHeader = cookieHeader.substring('presence'.length, cookieHeader.length);
+
+    this.cookie.createPresenceToken(cookieHeader);
+    return true;
+  }
+
   isLoggedIn() {
     return this.cookie.getPresenceToken() !== "";
   }

@@ -14,6 +14,7 @@ export class UpdatePatientGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.auth.checkCookieHeader();
 
     return this.auth.isAuthorized([PERMISSIONS.ADMIN, PERMISSIONS.DOCTOR, PERMISSIONS.NURSE, PERMISSIONS.RECEPTIONIST])
     .pipe(
