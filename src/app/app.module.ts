@@ -30,7 +30,10 @@ import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
-import { MatTableModule } from '@angular/material/table'; 
+import { MatTableModule } from '@angular/material/table';
+import { SearchEmployeeComponent } from './search-employee/search-employee.component'; 
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { MatTableModule } from '@angular/material/table';
     UpdatePasswordComponent,
     ViewPatientInfoComponent,
     ViewUpdateEmployeeComponent,
+    SearchEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,9 @@ import { MatTableModule } from '@angular/material/table';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
+    MatGridListModule,
+    MatPaginatorModule
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]

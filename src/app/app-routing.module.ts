@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { OptionsComponent } from './options/options.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
+import { SearchEmployeeComponent } from './search-employee/search-employee.component';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 
@@ -31,6 +32,10 @@ const routes: Routes = [
     path: 'create-patient',
     component: PatientCreationComponent,
     canActivate: [ AuthGuard, CreatePatientGuard ]
+  },
+  {
+    path: 'search-employee',
+    component: SearchEmployeeComponent
   },
   {
     path: 'patient/:id',
