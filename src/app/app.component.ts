@@ -41,6 +41,10 @@ export class AppComponent {
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   isOnLogin() {
     this.onLoginPage = this.location.path() === '/login';
     return this.onLoginPage;

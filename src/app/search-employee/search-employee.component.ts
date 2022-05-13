@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { formatDate } from '@angular/common';
 import { EmployeeQueryResp } from '../types/EmployeeQueryResp';
+import { ViewUpdateEmployeeComponent } from '../view-update-employee/view-update-employee.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -92,6 +93,10 @@ export class SearchEmployeeComponent implements OnInit {
         return;
       } 
     });
+  }
+
+  openEmployeeDialog(employeeid?: string) {
+    this.router.navigate(['/employee', employeeid]);
   }
 
   openSnackBar(message: string, action: string) {

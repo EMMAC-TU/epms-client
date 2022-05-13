@@ -5,7 +5,12 @@
     *ngIf="!isOnLogin()" 
     [opened]="isSideBarOpen" 
     class="sidenav-container">
-    <span class="vertical-spacer"></span>
+        <span class="vertical-spacer"></span>
+        <div class="back-button">
+            <button mat-raised-button color="primary" (click)="goBack()">
+                <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+        </div>
         <div class="button-rows">
             <mat-divider></mat-divider>
             <button mat-button class="nav-button" [routerLink]="['/search-employee']" color="primary">Search Employee</button>

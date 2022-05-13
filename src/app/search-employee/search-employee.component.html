@@ -50,19 +50,21 @@
 <p style="white-space: pre-wrap"></p>
 
 <div *ngFor="let emp of employeeResp.employee; index as i; ">
-    <mat-card class="body">
-            <mat-grid-list cols="3" rows="1" rowHeight="15px" gutterSize="15px">
-                <mat-grid-tile>
-                    EmployeeID: {{emp.employeeid}}
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    Name: {{emp.firstname}} {{emp.lastname}}
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    Date of Birth: {{convert_date(emp.dateofbirth)}}
-                </mat-grid-tile>
-            </mat-grid-list>
-    </mat-card>
+    <a (click)="openEmployeeDialog(emp.employeeid)">
+        <mat-card class="body">
+                <mat-grid-list cols="3" rows="1" rowHeight="15px" gutterSize="15px">
+                    <mat-grid-tile>
+                        EmployeeID: {{emp.employeeid}}
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        Name:{{emp.lastname}}, {{emp.firstname}} 
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        Date of Birth: {{convert_date(emp.dateofbirth)}}
+                    </mat-grid-tile>
+                </mat-grid-list>
+        </mat-card>
+    </a>
     <br>
 </div>
 
