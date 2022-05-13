@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
-import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
 
 @Component({
@@ -17,10 +15,7 @@ export class DialogWindowComponent implements OnInit{
   typeConfirmation: string = "";
   constructor(
     public dialogRef: MatDialogRef<DialogWindowComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      title: string, 
-      confirm: "YesNo" | "Ok",
-      msg: PatientCreation | EmployeeCreation | Employee | Patient | String },
+    @Inject(MAT_DIALOG_DATA) public data: {title: string, confirm: "YesNo" | "Ok", msg: PatientCreation | EmployeeCreation | String },
   ) {}
 
   ngOnInit(): void {

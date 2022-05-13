@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BackendQuery } from '../types/BackendQuery';
 import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
 import { AuthService } from './auth.service';
@@ -23,23 +24,18 @@ export class AdminService {
     });
   }
 
-  searchEmployees(params: {
-    dob?: string,
-    lastname?: string,
-    employeeid?: string,
-    limit?: number,
-    page?: number
-  }) {
+  searchEmployees(backendQuery: BackendQuery) {
     let query = [];
 
-    if (params.dob) query.push(`dateofbirth=${params.dob}`);
-    if (params.lastname) query.push(`lastname=${params.lastname}`);
-    if (params.employeeid) query.push(`employeeid=${params.employeeid}`);
-    if (params.limit) query.push(`limit=${params.limit}`);
-    if (params.page) query.push(`page=${params.page}`);
-
+    if (backendQuery.dob) query.push(`dateofbirth=${backendQuery.dob}`);
+    if (backendQuery.lastname) query.push(`lastname=${backendQuery.lastname}`);
+    if (backendQuery.employeeid) query.push(`employeeid=${backendQuery.employeeid}`);
+    if (backendQuery.limit) query.push(`limit=${backendQuery.limit}`);
+    if (backendQuery.page) query.push(`page=${backendQuery.page}`);
     this.headers = this.auth.setAuthHeader();
-    return this.http.get(`${environment.apiURL}/employees/search?${query.join('&')}`, {
+    let request = `${environment.apiURL}/employees/search?${query.join('&')}`
+    console.log("Sending: " + request)
+    return this.http.get(request, {
       headers: this.headers,
       observe: 'response'
     });
@@ -56,10 +52,10 @@ export class AdminService {
     );
   }
 
-  updateEmployee(employeeid: string | undefined, employee: Partial<Employee>) {
+  updateEmployee(employeeid: string, employee: Partial<Employee>) {
     this.headers = this.auth.setAuthHeader();
     return this.http.patch(
-      `${environment.apiURL}/employees/${employeeid}`,
+      `${environment.apiURL}/employee/${employeeid}`,
       employee,
       {
         headers: this.headers,

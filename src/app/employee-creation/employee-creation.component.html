@@ -17,7 +17,7 @@
                     Username cannot contain a space
                 </mat-error>
                 <mat-error *ngIf="userid.getError('lessthan5char')">
-                    Username must be longer than 5 characters
+                    Username must contain at least {{MIN_ID_LEN}} characters
                 </mat-error>
                 <mat-error *ngIf="userid.getError('illegalchar')">
                     {{ illegalChar }} is not a valid character

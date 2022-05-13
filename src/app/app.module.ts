@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SearchEmployeeComponent } from './search-employee/search-employee.component'
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
@@ -28,6 +29,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BnNgIdleService } from 'bn-ng-idle';
 import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule} from '@angular/material/paginator';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 import { MatTableModule } from '@angular/material/table'; 
@@ -37,14 +40,13 @@ import { MatTableModule } from '@angular/material/table';
     AppComponent,
     LoginComponent,
     HomePageComponent,
+    SearchEmployeeComponent,
     EmployeeCreationComponent,
     PatientCreationComponent,
     DialogWindowComponent,
     PageNotFoundComponent,
     OptionsComponent,
     UpdatePasswordComponent,
-    ViewPatientInfoComponent,
-    ViewUpdateEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,8 @@ import { MatTableModule } from '@angular/material/table';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    MatGridListModule,
+    MatPaginatorModule,
     MatTableModule
   ],
   providers: [BnNgIdleService],

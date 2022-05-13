@@ -21,16 +21,15 @@ export class AuthService {
     }, { responseType: 'json'});
   }
 
-  changePassword(currPassword: string, newPassword: string, employeeid?: string): Observable<Object>{
+  changePassword(currPassword: string, newPassword: string): Observable<Object>{
     this.headers = this.setAuthHeader(); 
-    const req = {
-      password: employeeid ? undefined : currPassword, // password not needed if admin is updating a password
-      newpassword: newPassword,
-      employeeid: employeeid ? employeeid : undefined
-    };
+    console.log(`Current: ${currPassword}  new: ${newPassword}`)
     return this.http.patch(
       `${environment.apiURL}/auth/password`,
-      req,
+      {
+        password: currPassword,
+        newpassword: newPassword
+      },
       {
         headers: this.headers,
         observe: 'response'

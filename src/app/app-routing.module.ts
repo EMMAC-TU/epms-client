@@ -3,14 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeCreationComponent } from './employee-creation/employee-creation.component';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
-import { CreatePatientGuard } from './guard/create-patient.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
+import { SearchEmployeeComponent } from './search-employee/search-employee.component';
 import { OptionsComponent } from './options/options.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PatientCreationComponent } from './patient-creation/patient-creation.component';
-import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
-import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 
 const routes: Routes = [
   {
@@ -23,6 +21,10 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
+    path: 'search-employee',
+    component: SearchEmployeeComponent
+  },
+  {
     path: 'create-employee',
     component: EmployeeCreationComponent,
     canActivate: [ AuthGuard, AdminGuard ]
@@ -30,17 +32,7 @@ const routes: Routes = [
   {
     path: 'create-patient',
     component: PatientCreationComponent,
-    canActivate: [ AuthGuard, CreatePatientGuard ]
-  },
-  {
-    path: 'patient/:id',
-    component: ViewPatientInfoComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'employee/:id',
-    component: ViewUpdateEmployeeComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [ AuthGuard, ]
   },
   {
     path: 'options',

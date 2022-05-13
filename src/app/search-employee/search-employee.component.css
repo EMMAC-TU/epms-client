@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.middle-initial {
+    max-width: 50px;
+}
+
+mat-form-field {
+    margin: 20px
+}
+mat-card {
+    text-align: center;
+    justify-content: center;
+    height: fit-content;
+    width: fit-content;
+}
+mat-card-title {
+    padding-top: 40px;
+}
+
+mat-grid-tile {
+    background-color: rgb(255, 255, 255);
+}
+
+form {
+    max-width: 50vw;
+}
+
+.body {
+    margin: 0;
+    padding: 5px;
+    width:100%;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+}

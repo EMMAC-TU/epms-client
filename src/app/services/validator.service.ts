@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
-import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
+import { constants } from '../types/Constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +9,6 @@ import { PatientCreation } from '../types/PatientCreation';
 export class ValidatorService {
 
   constructor() { }
-
-  isUserIdValid(form: FormControl, userid?: string) {
-    const id = userid ? userid : "";
-    const illegalchar = id.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
-    if (id.includes(' ')) {
-      form.setErrors({
-        'containSpace': true
-      });
-    } else if (id.length < 5) {
-      form.setErrors({
-        'lessthan5char': true
-      });
-    } else if (illegalchar){
-      form.setErrors({
-        'illegalchar': true
-      });
-      return illegalchar;
-    }
-    return [];
-  }
 
   createRegistrationRequest(req: EmployeeCreation | PatientCreation) {
     this.validateGender(req);
@@ -43,25 +21,10 @@ export class ValidatorService {
     return obj
   }
 
-  validateGender(req: EmployeeCreation | PatientCreation | Patient | Employee) {
-    if (!req.gender) return;
-    switch(req.gender) {
-      case 'Male':
-        req.gender = "M";
-        break;
-      case 'Female':
-        req.gender = 'F';
-        break;
-      case 'Other':
-        req.gender = 'O';
-        break;
-    }
-  }
-
   validateEmail(email: string): boolean{
     return !email
       .toLowerCase()
-      .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      .match(constants.EMAIL_REGEX)
   }
 
   validateDateOfBirth(dateofbirth: string): boolean {
@@ -69,12 +32,6 @@ export class ValidatorService {
     const MAX_DATE = new Date();
     const dob = new Date(dateofbirth);
     return dob >= MIN_DATE && dob <= MAX_DATE;
-  }
-
-  validateEndDate(enddate: string): boolean {
-    const MIN_DATE = new Date();
-    const ENDDATE = new Date(enddate);
-    return ENDDATE.getDate()+1 >= MIN_DATE.getDate();
   }
 
   validateText(fields?: string): { isValid: boolean, message: string } {
@@ -93,7 +50,7 @@ export class ValidatorService {
   validatePassword(password: string): string {
     if (password.includes(' ')){
       return 'Password cannot contain a space';
-    } else if (password.length < 8) {
+    } else if (password.length < constants.MIN_PWD_LEN) {
       return 'Password must be greater than 8 characters';
     } else if (!(password.match('^(?=.*[0-9]).*$'))) {
       return 'Password must contain a number';
