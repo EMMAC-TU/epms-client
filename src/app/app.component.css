@@ -1,6 +1,10 @@
 mat-sidenav {
     width: 200px;
     text-align: center;
+    justify-content: center;
+    display: flex;
+    color: #3f51b5;
+    background-color: whitesmoke;
 }
 .button-rows {
     margin-top: 250px;
@@ -15,6 +19,7 @@ mat-sidenav {
     margin-bottom: 20px;
     position: relative;
     width: auto;
+    color: #3f51b5
 }
 
 .example-container {
@@ -33,4 +38,8 @@ mat-sidenav {
 .options {
     margin-top: 25vh;
     flex: auto;
+}
+
+mat-sidenav-content {
+    background-color:whitesmoke;
 }

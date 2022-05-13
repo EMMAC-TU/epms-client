@@ -38,11 +38,19 @@
             </mat-form-field>
             <mat-form-field class="height">
                 <mat-label>Height (cm)</mat-label>
-                <input matInput name="height" [(ngModel)]="newPatient.height">
+                <input 
+                matInput 
+                name="height" 
+                type="number"
+                [(ngModel)]="newPatient.height">
             </mat-form-field>
             <mat-form-field class="weight">
                 <mat-label>Weight (kg)</mat-label>
-                <input matInput name="weight" [(ngModel)]="newPatient.weight">
+                <input 
+                matInput 
+                name="weight" 
+                type="number"
+                [(ngModel)]="newPatient.weight">
             </mat-form-field>
             <mat-form-field class="date-of-birth">
                 <mat-label>Date of Birth</mat-label>
@@ -188,7 +196,11 @@
                 <input matInput placeholder="D231231oe" name="groupnumber" [(ngModel)]="newPatient.insurance_groupnumber">
             </mat-form-field>
             <br>
-            <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>
+            <button 
+            mat-raised-button 
+            class="submit-button" 
+            (click)="openDialog()"
+            color="primary">Submit</button>
     
         </form>
     </mat-card>

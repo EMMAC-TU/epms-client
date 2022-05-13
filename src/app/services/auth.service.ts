@@ -60,8 +60,9 @@ export class AuthService {
   }
 
   setAuthHeader() {
+    let cookie = this.cookie.getPresenceToken();
     if (!this.headers.has('Authorization')) {
-      this.headers = this.headers.set('Authorization', `Bearer ${this.cookie.getPresenceToken()}`);
+      this.headers = this.headers.set('Authorization', `Bearer ${cookie}`);
     }
     return this.headers;
   }

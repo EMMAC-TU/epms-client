@@ -41,7 +41,7 @@ export class EmployeeCreationComponent implements OnInit {
   hide_confirm=true;
   illegalChar = '';
   errMessage = '';
-  positions: string[] = ['administrator', 'doctor', 'nurse', 'vendor', 'receptionist'];
+  positions: string[] = ['administrator', 'doctor', 'nurse', 'vendor', 'receptionist', 'accountant'];
   newEmployee: EmployeeCreation = {
     userid: '',
     password: '',
@@ -70,8 +70,7 @@ export class EmployeeCreationComponent implements OnInit {
     private validator: ValidatorService,
     private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openDialog() {
     // Check required fields
@@ -126,8 +125,7 @@ export class EmployeeCreationComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        console.log(response.body.employee.employeeid);
-        await this.router.navigateByUrl('/');
+        await this.router.navigateByUrl(`/employee/${response.body.employee.employeeid}`);
         return;
       } 
     });

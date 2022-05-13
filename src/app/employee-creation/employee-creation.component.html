@@ -69,6 +69,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <br>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
                 <input 
@@ -130,6 +131,7 @@
                     Please Enter a Valid Date of Birth
                 </mat-error>
             </mat-form-field>
+            <br>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
                 <input 
@@ -183,6 +185,7 @@
                     Please enter a valid home number
                 </mat-error>
             </mat-form-field>
+            <br>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
                 <input 
@@ -232,7 +235,11 @@
                 [(ngModel)]="newEmployee.country">
             </mat-form-field>
             <br>
-            <button mat-raised-button class="submit-button" (click)="openDialog()">Submit</button>
+            <button 
+            mat-raised-button 
+            class="submit-button" 
+            (click)="openDialog()"
+            color="primary">Submit</button>
     
         </form>
     </mat-card>

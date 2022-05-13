@@ -8,13 +8,14 @@ import { PERMISSIONS } from '../types/Permissions';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class CreatePatientGuard implements CanActivate {
   constructor(private auth: AuthService, private route: Router, private _snackBar: MatSnackBar) {}
+  
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
-    return this.auth.isAuthorized([PERMISSIONS.ADMIN])
+
+    return this.auth.isAuthorized([PERMISSIONS.ADMIN, PERMISSIONS.RECEPTIONIST])
     .pipe(
       catchError((err) => {
         return throwError(() => new Error());
@@ -28,7 +29,5 @@ export class AdminGuard implements CanActivate {
       })
     );
   }
-
-  
   
 }

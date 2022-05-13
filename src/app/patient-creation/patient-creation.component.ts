@@ -103,8 +103,7 @@ export class PatientCreationComponent implements OnInit {
     this.service.createPatient(this.newPatient)
     .pipe(
       catchError( (err) => {
-        console.log(err.error);
-        if (err.error.code === 500) {
+        if (err.error.code === 500 || !err.error.message) {
           this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));
         }
@@ -115,7 +114,7 @@ export class PatientCreationComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        await this.router.navigateByUrl('/');
+        await this.router.navigateByUrl(`/patient/${response.body.patientid}`);
         return;
       }  
     });

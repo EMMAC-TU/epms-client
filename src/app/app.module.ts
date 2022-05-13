@@ -31,6 +31,9 @@ import { OptionsComponent } from './options/options.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
+import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
+import { MatTableModule } from '@angular/material/table'; 
 
 @NgModule({
   declarations: [
@@ -66,7 +69,8 @@ import { MatPaginatorModule} from '@angular/material/paginator';
     FormsModule,
     ReactiveFormsModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
