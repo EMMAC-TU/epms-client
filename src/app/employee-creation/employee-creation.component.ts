@@ -124,7 +124,8 @@ export class EmployeeCreationComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        await this.router.navigateByUrl(`/employee/${response.body.employee.employeeid}`);
+        await this.router.navigate(['/employee/', response.body.employee.employeeid]);
+        this.openSnackBar('Employee has been created!', 'Confirm');
         return;
       } 
     });

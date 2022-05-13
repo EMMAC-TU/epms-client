@@ -30,9 +30,9 @@ form {
 }
 
 .body {
-    margin: 0;
+    margin: 5px;
     padding: 5px;
-    width:100%;
+    width: auto;
     justify-content: center;
     background: rgb(255, 255, 255);
 }

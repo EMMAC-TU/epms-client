@@ -70,6 +70,12 @@ export class SearchEmployeeComponent implements OnInit {
       return
     }
 
+    // Fix Date
+    // if (this.employeeQuery.dob) {
+    //   this.employeeQuery.dob = (new Date(this.employeeQuery.dob).toUTCString());
+    //   console.log(this.employeeQuery.dob);
+    // }
+    console.log(this.employeeQuery.dob);
     // Fields are good. Go ahead and make the request
     this.service.searchEmployees(this.employeeQuery)
     .pipe(
@@ -108,6 +114,7 @@ export class SearchEmployeeComponent implements OnInit {
     const id = this.employeeQuery.employeeid;
     if (id != null){
       if (!(id.match(constants.UUIDV4_REGEX))) {
+        console.log("setting errors");
         this.employeeid.setErrors({
           'invaliduuidv4': true
         });
