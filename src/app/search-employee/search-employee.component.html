@@ -6,20 +6,13 @@
                 <mat-label>Employee ID</mat-label>
                 <input 
                 matInput 
-                placeholder="0123456" 
                 name="employeeid" 
                 [(ngModel)]="employeeQuery.employeeid" 
                 [formControl]="employeeid" 
                 [errorStateMatcher]="matcher"
-                (change)="isUserIdValid()">
-                <mat-error *ngIf="employeeid.getError('containSpace')">
-                    Username cannot contain a space
-                </mat-error>
-                <mat-error *ngIf="employeeid.getError('lessthan5char')">
-                    Username must be at least {{ MIN_ID_LEN }} characters
-                </mat-error>
-                <mat-error *ngIf="employeeid.getError('illegalchar')">
-                    {{ illegalChar }} is not a valid character
+                (change)="isEmployeeIdValid()">
+                <mat-error *ngIf="employeeid.getError('invaliduuidv4')">
+                    Invalid format
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="user-id">
@@ -53,11 +46,33 @@
             </button> 
         </form>
     </mat-card>
+</div>
+<p style="white-space: pre-wrap"></p>
 
-    <mat-card class="search-form-container">
-        <mat-card-title>Results</mat-card-title>
-        <h3>Data will go here!</h3>
-
-
+<div *ngFor="let emp of employeeResp.employee; index as i; ">
+    <mat-card class="body">
+            <mat-grid-list cols="3" rows="1" rowHeight="15px" gutterSize="15px">
+                <mat-grid-tile>
+                    EmployeeID: {{emp.employeeid}}
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    Name: {{emp.firstname}} {{emp.lastname}}
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    Date of Birth: {{convert_date(emp.dateofbirth)}}
+                </mat-grid-tile>
+            </mat-grid-list>
     </mat-card>
+    <br>
+</div>
+
+<div>
+    <mat-paginator
+        [length]="totalNumItems"
+        [pageSize]="numRowsToShow"
+        [pageSizeOptions]="[10, 25, 50, 75, 100]"
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+        showFirstLastButtons=true>
+    </mat-paginator>
 </div>

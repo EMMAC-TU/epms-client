@@ -4,5 +4,6 @@ export interface BackendQuery {
     employeeid?: string,
     patientid?: string,
     limit?: number,
-    page?: number
+    page: number,
+    sort: number
 }
