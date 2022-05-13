@@ -187,6 +187,7 @@ export class ViewPatientInfoComponent implements OnInit {
       }
     });
   }
+  
   openSnackBar(msg: string, action: string) {
     this._snackBar.open(msg, action, {
       duration: 4000
