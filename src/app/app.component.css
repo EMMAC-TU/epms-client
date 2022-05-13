@@ -3,6 +3,8 @@ mat-sidenav {
     text-align: center;
     justify-content: center;
     display: flex;
+    color: #3f51b5;
+    background-color: whitesmoke;
 }
 
 .vertical-spacer {
@@ -23,6 +25,7 @@ mat-sidenav {
     margin-top: 20px;
     margin-bottom: 20px;
     width: auto;
+    color: #3f51b5
 }
 
 .example-container {
@@ -42,5 +45,5 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-    background-color: rgb(208, 208, 208);
+    background-color:whitesmoke;
 }
