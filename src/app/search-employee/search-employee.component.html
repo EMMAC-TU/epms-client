@@ -11,7 +11,7 @@
                 [formControl]="employeeid" 
                 [errorStateMatcher]="matcher"
                 (change)="isEmployeeIdValid()">
-                <mat-error *ngIf="employeeid.getError('invaliduuidv4')">
+                <mat-error *ngIf="employeeid.hasError('invaliduuidv4')">
                     Invalid format
                 </mat-error>
             </mat-form-field>
@@ -35,7 +35,7 @@
                 [formControl]="dateofbirth"
                 [errorStateMatcher]="matcher"
                 (change)="isDOBValid()">
-                <mat-error *ngIf="dateofbirth.getError('invalidDate')">
+                <mat-error *ngIf="dateofbirth.hasError('invalidDate')">
                     Please Enter a Valid Date of Birth
                 </mat-error>
             </mat-form-field>
@@ -44,6 +44,9 @@
                 <mat-icon>search</mat-icon>
                 Search
             </button> 
+            <button class='sort-button' mat-raised-button color="primary" (click)="changeSort()">
+                <mat-icon>sort_by_alpha</mat-icon>
+            </button>
         </form>
     </mat-card>
 </div>
@@ -52,12 +55,12 @@
 <div *ngFor="let emp of employeeResp.employee; index as i; ">
     <a (click)="openEmployeeDialog(emp.employeeid)">
         <mat-card class="body">
-                <mat-grid-list cols="3" rows="1" rowHeight="15px" gutterSize="15px">
+                <mat-grid-list cols="3" rows="1" rowHeight="35px" gutterSize="15px">
                     <mat-grid-tile>
                         EmployeeID: {{emp.employeeid}}
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        Name:{{emp.lastname}}, {{emp.firstname}} 
+                        Name: {{emp.lastname}}, {{emp.firstname}} 
                     </mat-grid-tile>
                     <mat-grid-tile>
                         Date of Birth: {{convert_date(emp.dateofbirth)}}
@@ -65,7 +68,6 @@
                 </mat-grid-list>
         </mat-card>
     </a>
-    <br>
 </div>
 
 <div>

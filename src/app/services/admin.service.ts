@@ -32,6 +32,7 @@ export class AdminService {
     if (backendQuery.employeeid) query.push(`employeeid=${backendQuery.employeeid}`);
     if (backendQuery.limit) query.push(`limit=${backendQuery.limit}`);
     if (backendQuery.page) query.push(`page=${backendQuery.page}`);
+    if (backendQuery.sort) query.push(`sort=${backendQuery.sort}`);
 
     this.headers = this.auth.setAuthHeader();
     return this.http.get(`${environment.apiURL}/employees/search?${query.join('&')}`, {

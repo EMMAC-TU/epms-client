@@ -4,6 +4,14 @@
             <span *ngIf="isBeingUpdated">Update</span> Patient {{ patient.lastname }}'s Information
         </mat-card-title>
         <form>
+            <mat-form-field class="patientid">
+                <mat-label>PatientID</mat-label>
+                <input
+                matInput
+                name="patientid"
+                [(ngModel)]="patient.patientid"
+                [readonly]="true">
+            </mat-form-field>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
                 <input
