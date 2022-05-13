@@ -1,0 +1,80 @@
+<div class="container">
+    <mat-card class="search-form-container">
+        <mat-card-title>Search for an Employee</mat-card-title>
+        <form>
+            <mat-form-field class="user-id">
+                <mat-label>Employee ID</mat-label>
+                <input 
+                matInput 
+                name="employeeid" 
+                [(ngModel)]="employeeQuery.employeeid" 
+                [formControl]="employeeid" 
+                [errorStateMatcher]="matcher"
+                (change)="isEmployeeIdValid()">
+                <mat-error *ngIf="employeeid.getError('invaliduuidv4')">
+                    Invalid format
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="user-id">
+                <mat-label>Last Name</mat-label>
+                <input 
+                matInput 
+                placeholder="Doe" 
+                name="lastname" 
+                [(ngModel)]="employeeQuery.lastname" 
+                [formControl]="lastname"
+                [errorStateMatcher]="matcher">
+            </mat-form-field>
+            <mat-form-field class="date-of-birth">
+                <mat-label>Date of Birth</mat-label>
+                <input 
+                type="date" 
+                matInput 
+                name="dateofbirth" 
+                [(ngModel)]="employeeQuery.dob" 
+                [formControl]="dateofbirth"
+                [errorStateMatcher]="matcher"
+                (change)="isDOBValid()">
+                <mat-error *ngIf="dateofbirth.getError('invalidDate')">
+                    Please Enter a Valid Date of Birth
+                </mat-error>
+            </mat-form-field>
+            <br/>
+            <button mat-raised-button color="primary" (click)="submitSearch()">
+                <mat-icon>search</mat-icon>
+                Search
+            </button> 
+        </form>
+    </mat-card>
+</div>
+<p style="white-space: pre-wrap"></p>
+
+<div *ngFor="let emp of employeeResp.employee; index as i; ">
+    <a (click)="openEmployeeDialog(emp.employeeid)">
+        <mat-card class="body">
+                <mat-grid-list cols="3" rows="1" rowHeight="15px" gutterSize="15px">
+                    <mat-grid-tile>
+                        EmployeeID: {{emp.employeeid}}
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        Name:{{emp.lastname}}, {{emp.firstname}} 
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        Date of Birth: {{convert_date(emp.dateofbirth)}}
+                    </mat-grid-tile>
+                </mat-grid-list>
+        </mat-card>
+    </a>
+    <br>
+</div>
+
+<div>
+    <mat-paginator
+        [length]="totalNumItems"
+        [pageSize]="numRowsToShow"
+        [pageSizeOptions]="[10, 25, 50, 75, 100]"
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+        showFirstLastButtons=true>
+    </mat-paginator>
+</div> 

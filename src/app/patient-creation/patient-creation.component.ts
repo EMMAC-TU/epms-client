@@ -8,6 +8,7 @@ import { catchError, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { PatientService } from '../services/patient.service';
 import { ValidatorService } from '../services/validator.service';
+import { constants } from '../types/Constants';
 import { PatientCreation } from '../types/PatientCreation';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,10 +26,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class PatientCreationComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   middleInit = new FormControl('', Validators.maxLength(1));
-  mobilePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  workPhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  homePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  nokNumber = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  homePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  nokNumber = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   dateofbirth = new FormControl();
   matcher = new MyErrorStateMatcher();
 

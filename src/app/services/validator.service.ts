@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { constants } from '../types/Constants';
 import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
 import { Patient } from '../types/Patient';
@@ -14,7 +15,7 @@ export class ValidatorService {
 
   isUserIdValid(form: FormControl, userid?: string) {
     const id = userid ? userid : "";
-    const illegalchar = id.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
+    const illegalchar = id.match(constants.ILLEGAL_CHAR_REGEX);
     if (id.includes(' ')) {
       form.setErrors({
         'containSpace': true
@@ -61,7 +62,7 @@ export class ValidatorService {
   validateEmail(email: string): boolean{
     return !email
       .toLowerCase()
-      .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      .match(constants.EMAIL_REGEX)
   }
 
   validateDateOfBirth(dateofbirth: string): boolean {

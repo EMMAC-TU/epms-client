@@ -33,12 +33,16 @@ export class AppComponent {
         if (isTimedOut) {
           this.logout();
           this._snackBar.open(
-            "Your session has timeout!",
+            "Your session has timed out!",
             "Confirm"
           );          
         }
       });
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   isOnLogin() {
