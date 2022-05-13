@@ -3,7 +3,9 @@
     display: flex;
     justify-content: center;
 }
-
+.employeeid {
+    width: max-content;
+}
 .middle-initial {
     max-width: 50px;
 }

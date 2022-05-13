@@ -114,7 +114,8 @@ export class PatientCreationComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        await this.router.navigateByUrl(`/patient/${response.body.patientid}`);
+        await this.router.navigate(['/patient', response.body.patientid]);
+        this.openSnackBar('Patient Created!', 'Confirm');
         return;
       }  
     });

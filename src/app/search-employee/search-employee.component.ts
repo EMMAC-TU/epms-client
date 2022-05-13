@@ -64,23 +64,16 @@ export class SearchEmployeeComponent implements OnInit {
 
   submitSearch() {
     // Verify inputs are valid
-    if( this.employeeid.invalid ||
+    if( this.employeeid.hasError('invaliduuidv4') ||
         this.lastname.invalid ||
-        this.dateofbirth.invalid ){
+        this.dateofbirth.hasError('invalidDate') ){
       return
     }
-
-    // Fix Date
-    // if (this.employeeQuery.dob) {
-    //   this.employeeQuery.dob = (new Date(this.employeeQuery.dob).toUTCString());
-    //   console.log(this.employeeQuery.dob);
-    // }
-    console.log(this.employeeQuery.dob);
+    console.log("here")
     // Fields are good. Go ahead and make the request
     this.service.searchEmployees(this.employeeQuery)
     .pipe(
       catchError( (err) => {
-        console.log(err.error);
         if (err.error.code === 500) {
           this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
           return throwError(() => new Error('Something bad happened; please try again later.'));
@@ -92,7 +85,6 @@ export class SearchEmployeeComponent implements OnInit {
     .subscribe(async (res) => {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
-        console.log(response.body.employees)
         this.employeeResp.employee = response.body.employees;
         this.employeeResp.totalItemsMatched = response.body.count;
         this.totalNumItems = this.employeeResp.totalItemsMatched;
@@ -111,14 +103,13 @@ export class SearchEmployeeComponent implements OnInit {
 
 
   isEmployeeIdValid() {
-    const id = this.employeeQuery.employeeid;
-    if (id != null){
-      if (!(id.match(constants.UUIDV4_REGEX))) {
-        console.log("setting errors");
-        this.employeeid.setErrors({
-          'invaliduuidv4': true
-        });
-      }
+    const id = this.employeeQuery.employeeid ? this.employeeQuery.employeeid : '';
+    if (!(id.match(constants.UUIDV4_REGEX)) && id !== '') {
+      this.employeeid.setErrors({
+        'invaliduuidv4': true
+      });
+    } else {
+      this.employeeid.reset(this.employeeQuery.employeeid);
     }
   }
 
@@ -130,11 +121,10 @@ export class SearchEmployeeComponent implements OnInit {
         'invalidDate': true
       })
     }
+    if (dob === '') this.dateofbirth.reset();
   }
 
   onChangePage(pe:PageEvent) {
-    console.log(pe.pageIndex);
-    console.log(pe.pageSize);
     this.employeeQuery.limit= pe.pageSize;
     this.employeeQuery.page=pe.pageIndex + 1;
 
@@ -144,8 +134,13 @@ export class SearchEmployeeComponent implements OnInit {
 
   convert_date(date?:string){
     if ( date != undefined && date != null){
-      return formatDate(date, "longDate", 'en-US')
+      return formatDate(date, "longDate", 'en-US', 'UTC')
     }
     return ""
+  }
+
+  changeSort() {
+    this.employeeQuery.sort = this.employeeQuery.sort === 1 ? -1 : 1;
+    this.submitSearch();
   }
 }

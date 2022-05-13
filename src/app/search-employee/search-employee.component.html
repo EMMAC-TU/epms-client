@@ -35,7 +35,7 @@
                 [formControl]="dateofbirth"
                 [errorStateMatcher]="matcher"
                 (change)="isDOBValid()">
-                <mat-error *ngIf="dateofbirth.getError('invalidDate')">
+                <mat-error *ngIf="dateofbirth.hasError('invalidDate')">
                     Please Enter a Valid Date of Birth
                 </mat-error>
             </mat-form-field>
@@ -44,7 +44,7 @@
                 <mat-icon>search</mat-icon>
                 Search
             </button> 
-            <button mat-raised-button color="primary">
+            <button class='sort-button' mat-raised-button color="primary" (click)="changeSort()">
                 <mat-icon>sort_by_alpha</mat-icon>
             </button>
         </form>

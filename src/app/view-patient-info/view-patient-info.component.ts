@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +9,7 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { MyErrorStateMatcher } from '../employee-creation/employee-creation.component';
 import { PatientService } from '../services/patient.service';
 import { ValidatorService } from '../services/validator.service';
+import { constants } from '../types/Constants';
 import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
 
@@ -21,10 +23,10 @@ export class ViewPatientInfoComponent implements OnInit {
   lastname = new FormControl('', [Validators.maxLength(35)]);
   email = new FormControl('', [Validators.email]);
   middleInit = new FormControl('', Validators.maxLength(1));
-  mobilePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  workPhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  homePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  nokNumber = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  homePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  nokNumber = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   dateofbirth = new FormControl();
   matcher = new MyErrorStateMatcher();
 
@@ -174,10 +176,10 @@ export class ViewPatientInfoComponent implements OnInit {
     Object.entries(res).forEach((values) => {
       // Format Date of Birth
       if (values[0] === 'dateofbirth') { 
-        this.patient.dateofbirth = new Date(values[1]).toDateString();
+        this.patient.dateofbirth = this.convert_date(values[1]);
       }
       if (values[0] === 'creationdate') {
-        this.patient.creationdate = new Date(values[1]).toDateString();
+        this.patient.creationdate = this.convert_date(values[1]);
       }
       if (values[0] === 'outpatient') {
         this.isOutPatient = "Yes";
@@ -187,6 +189,14 @@ export class ViewPatientInfoComponent implements OnInit {
       }
     });
   }
+
+  convert_date(date?:string){
+    if ( date != undefined && date != null){
+      return formatDate(date, "longDate", 'en-US', 'UTC')
+    }
+    return ""
+  }
+  
   openSnackBar(msg: string, action: string) {
     this._snackBar.open(msg, action, {
       duration: 4000

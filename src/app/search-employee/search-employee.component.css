@@ -36,3 +36,7 @@ form {
     justify-content: center;
     background: rgb(255, 255, 255);
 }
+
+.sort-button {
+    margin-left: 20px;
+}

@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,6 +9,7 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { MyErrorStateMatcher } from '../employee-creation/employee-creation.component';
 import { AdminService } from '../services/admin.service';
 import { ValidatorService } from '../services/validator.service';
+import { constants } from '../types/Constants';
 import { Employee } from '../types/Employee';
 import { EmployeeCreation } from '../types/EmployeeCreation';
 import { Patient } from '../types/Patient';
@@ -25,10 +27,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
   lastname = new FormControl('', [Validators.maxLength(35)]);
   email = new FormControl('', [Validators.email]);
   middleInit = new FormControl('', Validators.maxLength(1));
-  mobilePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  workPhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  homePhone = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
-  nokNumber = new FormControl('', Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im));
+  mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  homePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
+  nokNumber = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   dateofbirth = new FormControl();
   matcher = new MyErrorStateMatcher();
 
@@ -209,15 +211,22 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     Object.entries(res).forEach((values) => {
       // Format Date of Birth
       if (values[0] === 'dateofbirth') { 
-        this.employee.dateofbirth = new Date(values[1]).toDateString();
+        this.employee.dateofbirth = this.convert_date(values[1]);
       }
       if (values[0] === 'startdate') {
-        this.employee.startdate = new Date(values[1]).toDateString();
+        this.employee.startdate = this.convert_date(values[1]);
       }
       if (values[0] === 'gender') {
         this.employee.gender = values[1] === 'F' ? 'Female' : 'Male'
       }
     });
+  }
+
+  convert_date(date?:string){
+    if ( date != undefined && date != null){
+      return formatDate(date, "longDate", 'en-US', 'UTC')
+    }
+    return ""
   }
 
   openSnackBar(msg: string, action: string) {
