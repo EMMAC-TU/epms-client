@@ -118,6 +118,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     ) return;
 
     this.cleanData();
+    if (Object.entries(this.updatedEmp).length === 0) { // No changes were made
+      this.openSnackBar('No changes were made!', 'Confirm');
+      return;
+    }
     this.validator.validateGender(this.updatedEmp);
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '400px',
