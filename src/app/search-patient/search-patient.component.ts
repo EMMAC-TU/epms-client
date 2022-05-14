@@ -69,7 +69,7 @@ export class SearchPatientComponent implements OnInit {
         this.dateofbirth.hasError('invalidDate') ){
       return
     }
-    if (resetPage === true){
+    if (resetPage){
       this.patientQuery.page = 0;
       this.myPaginator?.firstPage()
     }
