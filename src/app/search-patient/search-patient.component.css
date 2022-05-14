@@ -35,6 +35,7 @@ form {
     width: auto;
     justify-content: center;
     background: rgb(255, 255, 255);
+    cursor: pointer;
 }
 
 .sort-button {
