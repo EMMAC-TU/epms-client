@@ -1,4 +1,14 @@
-<mat-sidenav-container class="example-container">
+<mat-toolbar *ngIf="!isOnLogin()" color="primary">
+    <button mat-icon-button (click)="isSideBarOpen=!isSideBarOpen">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Electronic Health Record System</span>
+    <span class="spacer"></span>
+    <button mat-icon-button class="home-icon" (click)="goToHome()">
+        <mat-icon>home</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container id="container" class="example-container" fullscreen>
     <mat-sidenav 
     #sidenav 
     mode="side" 
@@ -31,16 +41,7 @@
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar *ngIf="!isOnLogin()" color="primary">
-            <button mat-icon-button (click)="isSideBarOpen=!isSideBarOpen">
-                <mat-icon>menu</mat-icon>
-            </button>
-            <span>Electronic Health Record System</span>
-            <span class="spacer"></span>
-            <button mat-icon-button class="home-icon" (click)="goToHome()">
-                <mat-icon>home</mat-icon>
-            </button>
-        </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
+

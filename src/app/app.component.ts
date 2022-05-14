@@ -47,6 +47,8 @@ export class AppComponent {
 
   isOnLogin() {
     this.onLoginPage = this.location.path() === '/login';
+    if (this.onLoginPage) 
+      document.getElementById('container')?.style.setProperty('top', '0', 'important')
     return this.onLoginPage;
   }
 

@@ -36,11 +36,13 @@ const routes: Routes = [
   },
   {
     path: 'search-employee',
-    component: SearchEmployeeComponent
+    component: SearchEmployeeComponent,
+    canActivate: [ AuthGuard, AdminGuard ]
   },
   {
     path: 'search-patient',
-    component: SearchPatientComponent
+    component: SearchPatientComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'patient/:id',

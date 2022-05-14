@@ -3,5 +3,6 @@ export const PERMISSIONS = {
     NURSE: 'nurse',
     DOCTOR: 'doctor',
     VENDOR: 'vendor',
-    RECEPTIONIST: 'receptionist'
+    RECEPTIONIST: 'receptionist',
+    ACCOUNTANT: 'accountant'
 }
