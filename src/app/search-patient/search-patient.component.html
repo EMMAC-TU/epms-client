@@ -40,7 +40,7 @@
                 </mat-error>
             </mat-form-field>
             <br/>
-            <button mat-raised-button color="primary" (click)="submitSearch()">
+            <button mat-raised-button color="primary" (click)="submitSearch(true)">
                 <mat-icon>search</mat-icon>
                 Search
             </button> 
@@ -72,6 +72,7 @@
 
 <div>
     <mat-paginator
+        #myPaginator
         [length]="totalNumItems"
         [pageSize]="numRowsToShow"
         [pageSizeOptions]="[10, 25, 50, 75, 100]"

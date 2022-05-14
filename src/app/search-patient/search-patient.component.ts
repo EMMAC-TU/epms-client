@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -9,7 +9,7 @@ import { PatientService } from '../services/patient.service';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { formatDate } from '@angular/common';
 import { PatientQueryResp } from '../types/PatientQueryResp';
 
@@ -26,6 +26,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./search-patient.component.css']
 })
 export class SearchPatientComponent implements OnInit {
+  @ViewChild('myPaginator') myPaginator: MatPaginator | undefined;
   MIN_ID_LEN = constants.MIN_ID_LEN;
   patientid = new FormControl('',[Validators.pattern(constants.UUIDV4_REGEX)]);
   dateofbirth = new FormControl('');
@@ -61,12 +62,16 @@ export class SearchPatientComponent implements OnInit {
     this.submitSearch();
   }
 
-  submitSearch() {
+  submitSearch(resetPage: boolean=false) {
     // Verify inputs are valid
     if( this.patientid.hasError('invaliduuidv4') ||
         this.lastname.invalid ||
         this.dateofbirth.hasError('invalidDate') ){
       return
+    }
+    if (resetPage === true){
+      this.patientQuery.page = 0;
+      this.myPaginator?.firstPage()
     }
     // Fields are good. Go ahead and make the request
     this.service.searchPatients(this.patientQuery)
@@ -84,7 +89,7 @@ export class SearchPatientComponent implements OnInit {
       const response = res as any;
       if (response.status === 200 || response.status === 201) {
         this.patientResp.patient = response.body.patients;
-        this.patientResp.totalItemsMatched = response.body.recordCount;
+        this.patientResp.totalItemsMatched = response.body.count;
         this.totalNumItems = this.patientResp.totalItemsMatched;
         return;
       } 

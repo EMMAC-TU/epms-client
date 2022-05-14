@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -9,7 +9,7 @@ import { AdminService } from '../services/admin.service';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { formatDate } from '@angular/common';
 import { EmployeeQueryResp } from '../types/EmployeeQueryResp';
 import { ViewUpdateEmployeeComponent } from '../view-update-employee/view-update-employee.component';
@@ -27,6 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./search-employee.component.css']
 })
 export class SearchEmployeeComponent implements OnInit {
+  @ViewChild('myPaginator') myPaginator: MatPaginator | undefined;
   MIN_ID_LEN = constants.MIN_ID_LEN;
   employeeid = new FormControl('',[Validators.pattern(constants.UUIDV4_REGEX)]);
   dateofbirth = new FormControl('');
@@ -62,14 +63,17 @@ export class SearchEmployeeComponent implements OnInit {
     this.submitSearch();
   }
 
-  submitSearch() {
+  submitSearch(resetPage: boolean=false) {
     // Verify inputs are valid
     if( this.employeeid.hasError('invaliduuidv4') ||
         this.lastname.invalid ||
         this.dateofbirth.hasError('invalidDate') ){
       return
     }
-    console.log("here")
+    if (resetPage === true){
+      this.employeeQuery.page = 0;
+      this.myPaginator?.firstPage()
+    }
     // Fields are good. Go ahead and make the request
     this.service.searchEmployees(this.employeeQuery)
     .pipe(
