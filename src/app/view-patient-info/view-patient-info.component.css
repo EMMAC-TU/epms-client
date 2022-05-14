@@ -14,7 +14,7 @@ mat-form-field {
 mat-card {
     text-align: center;
     justify-content: center;
-    height: 100vh;
+    height: auto;
     width: fit-content;
 }
 
