@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
 import { AuthService } from './auth.service';
+import { BackendQuery } from '../types/BackendQuery';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,21 @@ export class PatientService {
     );
   }
 
-  searchPatient() {
+  searchPatients(backendQuery: BackendQuery) {
+    let query = [];
 
+    if (backendQuery.dob) query.push(`dateofbirth=${backendQuery.dob}`);
+    if (backendQuery.lastname) query.push(`lastname=${backendQuery.lastname}`);
+    if (backendQuery.patientid) query.push(`patientid=${backendQuery.patientid}`);
+    if (backendQuery.limit) query.push(`limit=${backendQuery.limit}`);
+    if (backendQuery.page) query.push(`page=${backendQuery.page}`);
+    if (backendQuery.sort) query.push(`sort=${backendQuery.sort}`);
+
+    this.headers = this.auth.setAuthHeader();
+    return this.http.get(`${environment.apiURL}/patients/search?${query.join('&')}`, {
+      headers: this.headers,
+      observe: 'response'
+    });
   }
 
   getAPatient(patientid: string) {

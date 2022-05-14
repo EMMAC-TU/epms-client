@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.username.length === 0 || this.password.length === 0) return;
+    if (this.username.length === 0 || this.password.length === 0) {
+      this.openSnackBar("Please input a username and password to continue", "Confirm")
+      return throwError(() => new Error("Empty username or password"));
+    }
     this.auth.login(this.username, this.password)
     .pipe(
       catchError((err) => {
@@ -49,6 +52,7 @@ export class LoginComponent implements OnInit {
         location.reload();
       }
     });
+    return;
   }
 
   contactAdmin() {
@@ -67,4 +71,7 @@ export class LoginComponent implements OnInit {
     this._snackBar.open(message, action, {duration: 4000});
   }
 
+  handleEnterKeyDown(event: any) {
+    this.login()
+  }
 }

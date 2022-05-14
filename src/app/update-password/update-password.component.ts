@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -35,9 +35,9 @@ export class UpdatePasswordComponent implements OnInit {
   confirmPassword = "";
   errMessage = "";
 
-  passwordForm = new FormControl('');
-  confirmPasswordForm = new FormControl('');
-  newPasswordForm = new FormControl('');
+  passwordForm = new FormControl('', [Validators.required]);
+  confirmPasswordForm = new FormControl('', [Validators.required]);
+  newPasswordForm = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -52,11 +52,18 @@ export class UpdatePasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   updatePassword() {
+    if (this.data.employeeid) { //Admin updating password
+      this.passwordForm.disable();
+    }
     if (
       this.confirmPasswordForm.hasError('passwordsDontMatch') ||
       this.newPasswordForm.hasError('invalidPassword') ||
-      this.passwordForm.hasError('passwordsDontMatch')
+      this.newPasswordForm.hasError('passwordsDontMatch') ||
+      this.confirmPasswordForm.invalid ||
+      this.newPasswordForm.invalid ||
+      this.passwordForm.invalid 
     ) return;
   
     this.auth.changePassword(this.password, this.newPassword, this.data.employeeid)
@@ -102,6 +109,8 @@ export class UpdatePasswordComponent implements OnInit {
   }
 
   confirmPasswords() {
+    if (this.newPasswordForm.hasError('invalidPassword')) return;
+    
     if (this.confirmPassword === this.newPassword){
       this.confirmPasswordForm.reset(this.confirmPassword);
       this.newPasswordForm.reset(this.newPassword);

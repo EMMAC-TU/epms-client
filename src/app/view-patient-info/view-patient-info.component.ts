@@ -4,14 +4,16 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { MyErrorStateMatcher } from '../employee-creation/employee-creation.component';
+import { AuthService } from '../services/auth.service';
 import { PatientService } from '../services/patient.service';
 import { ValidatorService } from '../services/validator.service';
 import { constants } from '../types/Constants';
 import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
+import { PERMISSIONS } from '../types/Permissions';
 
 @Component({
   selector: 'app-view-patient-info',
@@ -42,6 +44,7 @@ export class ViewPatientInfoComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -100,8 +103,36 @@ export class ViewPatientInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks to see if the user is authorized to update a patient
+   */
+  isAuthorized() {
+    return this.auth.isAuthorized([
+      PERMISSIONS.ADMIN, 
+      PERMISSIONS.DOCTOR, 
+      PERMISSIONS.NURSE, 
+      PERMISSIONS.RECEPTIONIST
+    ]).pipe(
+        catchError((err) => {
+            if (err.error.code === 500) {
+              this.openSnackBar("There was an issue on our side. Please try again later", "Confirm")
+            } else {
+              this.openSnackBar(err.error.message, 'Confirm');
+            }
+            return throwError(() => new Error(err.error.message));
+        })
+      ).subscribe((res) => {
+        const response = res.body as any;
+        if (!response.isAuthorized) {
+          this.openSnackBar('You are not authorized to update a patient', 'Confirm');
+        } else {
+          this.isBeingUpdated = !this.isBeingUpdated;
+        }
+      })
+  }
+
   updateFields() {
-    this.isBeingUpdated = !this.isBeingUpdated;
+    this.isAuthorized();      
   }
 
   submit() {

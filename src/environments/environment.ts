@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiURL: 'https://epms-service-api-q8l3e.ondigitalocean.app',
-  apiURL: 'http://localhost:3000'
+  apiURL: 'https://epms-service-api-q8l3e.ondigitalocean.app',
+  // apiURL: 'http://localhost:3000'
 };
 
 /*

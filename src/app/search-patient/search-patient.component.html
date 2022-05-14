@@ -1,17 +1,17 @@
 <div class="container">
     <mat-card class="search-form-container">
-        <mat-card-title>Search for an Employee</mat-card-title>
+        <mat-card-title>Search for a Patient</mat-card-title>
         <form>
             <mat-form-field class="user-id">
-                <mat-label>Employee ID</mat-label>
+                <mat-label>Patient ID</mat-label>
                 <input 
                 matInput 
-                name="employeeid" 
-                [(ngModel)]="employeeQuery.employeeid" 
-                [formControl]="employeeid" 
+                name="patientid" 
+                [(ngModel)]="patientQuery.patientid" 
+                [formControl]="patientid" 
                 [errorStateMatcher]="matcher"
-                (change)="isEmployeeIdValid()">
-                <mat-error *ngIf="employeeid.hasError('invaliduuidv4')">
+                (change)="isPatientIdValid()">
+                <mat-error *ngIf="patientid.hasError('invaliduuidv4')">
                     Invalid format
                 </mat-error>
             </mat-form-field>
@@ -21,7 +21,7 @@
                 matInput 
                 placeholder="Doe" 
                 name="lastname" 
-                [(ngModel)]="employeeQuery.lastname" 
+                [(ngModel)]="patientQuery.lastname" 
                 [formControl]="lastname"
                 [errorStateMatcher]="matcher">
             </mat-form-field>
@@ -31,7 +31,7 @@
                 type="date" 
                 matInput 
                 name="dateofbirth" 
-                [(ngModel)]="employeeQuery.dob" 
+                [(ngModel)]="patientQuery.dob" 
                 [formControl]="dateofbirth"
                 [errorStateMatcher]="matcher"
                 (change)="isDOBValid()">
@@ -52,18 +52,18 @@
 </div>
 <p style="white-space: pre-wrap"></p>
 
-<div *ngFor="let emp of employeeResp.employee; index as i; ">
-    <a (click)="openEmployeeDialog(emp.employeeid)">
+<div *ngFor="let pat of patientResp.patient; index as i; ">
+    <a (click)="openPatientDialog(pat.patientid)">
         <mat-card class="body">
                 <mat-grid-list cols="3" rows="1" rowHeight="35px" gutterSize="15px">
                     <mat-grid-tile>
-                        EmployeeID: {{emp.employeeid}}
+                        PatientID: {{pat.patientid}}
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        Name: {{emp.lastname}}, {{emp.firstname}} 
+                        Name: {{pat.lastname}}, {{pat.firstname}} 
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        Date of Birth: {{convert_date(emp.dateofbirth)}}
+                        Date of Birth: {{convert_date(pat.dateofbirth)}}
                     </mat-grid-tile>
                 </mat-grid-list>
         </mat-card>
