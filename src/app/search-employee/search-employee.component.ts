@@ -70,7 +70,7 @@ export class SearchEmployeeComponent implements OnInit {
         this.dateofbirth.hasError('invalidDate') ){
       return
     }
-    if (resetPage === true){
+    if (resetPage){
       this.employeeQuery.page = 0;
       this.myPaginator?.firstPage()
     }
