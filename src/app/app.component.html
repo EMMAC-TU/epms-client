@@ -6,7 +6,8 @@
     [opened]="isSideBarOpen" 
     class="sidenav-container">
         <span class="vertical-spacer"></span>
-        <div class="back-button">
+        <mat-divider></mat-divider>
+        <div class="nav-button">
             <button mat-raised-button color="primary" (click)="goBack()">
                 <mat-icon>keyboard_backspace</mat-icon>
             </button>
@@ -26,6 +27,7 @@
             <button mat-button (click)="openOptions()">
                 <mat-icon>settings</mat-icon>
             </button>
+            <mat-divider></mat-divider>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
