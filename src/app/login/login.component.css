@@ -15,7 +15,8 @@ login-container {
     margin-top: 10px;
 }
 
-text {
+.text {
     padding-bottom: 20px;
+    cursor: pointer;
 }
 

@@ -1,29 +1,27 @@
 <mat-card class="container">
     <mat-card-content class="loginform">
-      <form>
         <h2>Log In</h2>
         <div>
           <mat-form-field>
             <mat-label>Enter Username</mat-label>
-            <input name="username" [(ngModel)]="username" matInput placeholder="Username" required>
+            <input name="username" [(ngModel)]="username" matInput placeholder="Username" required (keydown.enter)="handleEnterKeyDown($event)">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
             <mat-label>Enter Password</mat-label>
-            <input name="password" type="password" [(ngModel)]="password" matInput [type]="hide ? 'password' : 'text'" required>
+            <input matInput name="password" type="password" [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required (keydown.enter)="handleEnterKeyDown($event)">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'">
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
         </div>
         <div class="forgot-uandp">
-            <a (click)="contactAdmin()" class="text">Forgot Username/Password?</a>
+            <a (click)="contactAdmin()" class="text"><u>Forgot Username/Password?</u></a>
         </div>
         <div class="login-container">
           <button mat-raised-button 
          color="primary" class="login-button" (click)="login()">Login</button>
         </div>
-      </form>
     </mat-card-content>
 </mat-card>
