@@ -12,6 +12,7 @@ import { PatientCreationComponent } from './patient-creation/patient-creation.co
 import { SearchEmployeeComponent } from './search-employee/search-employee.component';
 import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.component';
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
+import { SearchPatientComponent } from './search-patient/search-patient.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'search-employee',
     component: SearchEmployeeComponent
+  },
+  {
+    path: 'search-patient',
+    component: SearchPatientComponent
   },
   {
     path: 'patient/:id',

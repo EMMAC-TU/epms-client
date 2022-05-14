@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SearchEmployeeComponent } from './search-employee/search-employee.component'; 
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import { SearchPatientComponent } from './search-patient/search-patient.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatPaginatorModule} from '@angular/material/paginator';
     ViewPatientInfoComponent,
     ViewUpdateEmployeeComponent,
     SearchEmployeeComponent,
+    SearchPatientComponent,
   ],
   imports: [
     BrowserModule,
