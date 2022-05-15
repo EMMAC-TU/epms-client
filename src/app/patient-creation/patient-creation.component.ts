@@ -24,7 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./patient-creation.component.css']
 })
 export class PatientCreationComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required, Validators.pattern(constants.EMAIL_REGEX)]);
   middleInit = new FormControl('', Validators.maxLength(1));
   mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
