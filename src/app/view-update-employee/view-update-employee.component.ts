@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
@@ -97,7 +97,7 @@ export class ViewUpdateEmployeeComponent implements OnInit {
       return;
     }
     illegalchar.forEach((val) => {
-      !this.illegalChars.includes(val) ? this.illegalChars += val + " " : ""
+      this.illegalChars = val;
     });
   }
 
@@ -109,8 +109,14 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     if (
       this.firstname.hasError('empty') ||
       this.lastname.hasError('empty') ||
-      this.email.invalid ||
       this.email.hasError('empty') ||
+      this.userid.hasError('empty')
+    ) {
+      this.openSnackBar('Please enter the required fields', 'Confirm');
+      return;
+    }
+    if (
+      this.email.invalid ||
       this.middleInit.invalid ||
       this.mobilePhone.invalid ||
       this.workPhone.invalid ||

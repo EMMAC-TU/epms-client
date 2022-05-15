@@ -33,6 +33,9 @@
                 <mat-error *ngIf="userid.hasError('illegalchar')">
                     {{ illegalChars }} is not allowed in User ID
                 </mat-error>
+                <mat-error *ngIf="userid.hasError('empty')">
+                    Field cannot be empty
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="first-name">
                 <mat-label>First Name</mat-label>
@@ -102,6 +105,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <br>
             <mat-form-field class="start-date">
                 <mat-label>Start Date</mat-label>
                 <input
@@ -151,6 +155,7 @@
                     Please Enter a Valid Date of Birth
                 </mat-error>
             </mat-form-field>
+            <br>
             <mat-form-field class="email">
                 <mat-label>Email</mat-label>
                 <input 
@@ -215,6 +220,7 @@
                     Please enter a valid home number
                 </mat-error>
             </mat-form-field>
+            <br>
             <mat-form-field class="street-address-1">
                 <mat-label>Street Address 1</mat-label>
                 <input 

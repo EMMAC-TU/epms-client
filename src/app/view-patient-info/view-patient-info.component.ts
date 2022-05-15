@@ -139,8 +139,13 @@ export class ViewPatientInfoComponent implements OnInit {
     if (
       this.firstname.hasError('empty') ||
       this.lastname.hasError('empty') ||
+      this.email.hasError('empty')
+    ) {
+      this.openSnackBar('Please enter the required fields', 'Confirm');
+      return;
+    }
+    if (
       this.email.invalid ||
-      this.email.hasError('empty') ||
       this.middleInit.invalid ||
       this.mobilePhone.invalid ||
       this.workPhone.invalid ||
