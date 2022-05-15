@@ -98,7 +98,10 @@ export class UpdatePasswordComponent implements OnInit {
 
   isPasswordValid() {
     const msg = this.validator.validatePassword(this.newPassword);
-    if (msg.length === 0) return;
+    if (msg.length === 0) {
+      this.confirmPasswords();
+      return;
+    } 
     this.errMessage = msg;
     this.newPasswordForm.setErrors({
       invalidPassword: true
@@ -106,7 +109,10 @@ export class UpdatePasswordComponent implements OnInit {
   }
 
   confirmPasswords() {
-    if (this.newPasswordForm.hasError('invalidPassword')) return;
+    if (
+      this.newPasswordForm.hasError('invalidPassword') || 
+      this.confirmPassword === ''
+      ) return;
     
     if (this.confirmPassword === this.newPassword){
       this.confirmPasswordForm.reset(this.confirmPassword);
