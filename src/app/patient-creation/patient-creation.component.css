@@ -15,7 +15,7 @@ mat-card {
     text-align: center;
     justify-content: center;
     height: auto;
-    width: fit-content;
+    width: 75%;
 }
 mat-card-title {
     padding-top: 40px;

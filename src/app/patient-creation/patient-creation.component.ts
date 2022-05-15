@@ -73,6 +73,7 @@ export class PatientCreationComponent implements OnInit {
       this.newPatient.lastname && 
       this.newPatient.dateofbirth && 
       this.newPatient.email)){
+        this.openSnackBar('Please enter the required fields', 'Confirm');
       return;
     }
     if (

@@ -16,7 +16,11 @@ export class ValidatorService {
   isUserIdValid(form: FormControl, userid?: string) {
     const id = userid ? userid : "";
     const illegalchar = id.match(constants.ILLEGAL_CHAR_REGEX);
-    if (id.includes(' ')) {
+    if (id.length === 0) {
+      form.setErrors({
+        'empty': true
+      });
+    } else if (id.includes(' ')) {
       form.setErrors({
         'containSpace': true
       });

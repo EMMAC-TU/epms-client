@@ -86,6 +86,7 @@ export class EmployeeCreationComponent implements OnInit {
       this.newEmployee.userid &&
       this.newEmployee.password &&
       this.newEmployee.position)){
+        this.openSnackBar('Please enter the required fields', 'Confirm');
       return;
     }
     if(
