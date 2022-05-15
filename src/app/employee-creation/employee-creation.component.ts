@@ -77,7 +77,7 @@ export class EmployeeCreationComponent implements OnInit {
   openDialog() {
     // Confirm Passwords
     this.doPasswordsMatch();
-    
+
     // Check required fields
     if (!(this.newEmployee.firstname && 
       this.newEmployee.lastname && 
@@ -150,7 +150,10 @@ export class EmployeeCreationComponent implements OnInit {
   isPasswordValid() {
     const pwrd = this.newEmployee.password ? this.newEmployee.password : "";
     const msg = this.validator.validatePassword(pwrd);
-    if (msg.length === 0) return;
+    if (msg.length === 0) {
+      this.doPasswordsMatch();
+      return;
+    } 
     this.errMessage = msg;
     this.password.setErrors({
       'invalidPassword': true
@@ -158,19 +161,24 @@ export class EmployeeCreationComponent implements OnInit {
   }
 
   doPasswordsMatch() {
-    if (this.password.invalid) return;
+    if (
+      this.password.hasError('invalidPassword') || 
+      this.confirmPasswordField === ''
+      ) return;
 
-    if (this.newEmployee.password !== this.confirmPasswordField) {
-      this.confirmPassword.setErrors({
-        'passwordsdonotmatch': true
-      });
-      this.password.setErrors({
-        'passwordsdonotmatch': true
-      });
-    } else {
+    if (this.confirmPasswordField === this.newEmployee.password) {
       this.password.reset(this.newEmployee.password);
-      this.confirmPassword.reset(confirm);
+      this.confirmPassword.reset(this.confirmPasswordField);
+      return;
     }
+
+    this.password.setErrors({
+      'passwordsdonotmatch': true
+    });
+
+    this.confirmPassword.setErrors({
+      'passwordsdonotmatch': true
+    });
   }
 
   isUserIdValid() {

@@ -48,7 +48,7 @@
                 <mat-label>Confirm Password</mat-label>
                 <input 
                 [type]="hide_confirm ? 'password' : 'text'"
-                #confirm
+                [(ngModel)]="confirmPasswordField"
                 matInput 
                 required
                 [formControl]="confirmPassword"
