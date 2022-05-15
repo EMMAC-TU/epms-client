@@ -53,7 +53,7 @@
                 required
                 [formControl]="confirmPassword"
                 [errorStateMatcher]="matcher"
-                (change)="doPasswordsMatch(confirm.value)">
+                (change)="doPasswordsMatch()">
                 <button mat-icon-button matSuffix (click)="hide_confirm = !hide_confirm">
                     <mat-icon>{{ hide_confirm ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>

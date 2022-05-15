@@ -42,6 +42,8 @@ export class EmployeeCreationComponent implements OnInit {
   illegalChar = '';
   errMessage = '';
   positions: string[] = ['administrator', 'doctor', 'nurse', 'vendor', 'receptionist', 'accountant'];
+  confirmPasswordField = '';
+
   newEmployee: EmployeeCreation = {
     userid: '',
     password: '',
@@ -73,6 +75,9 @@ export class EmployeeCreationComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog() {
+    // Confirm Passwords
+    this.doPasswordsMatch();
+    
     // Check required fields
     if (!(this.newEmployee.firstname && 
       this.newEmployee.lastname && 
@@ -86,7 +91,8 @@ export class EmployeeCreationComponent implements OnInit {
     if(
       this.userid.invalid ||
       this.email.invalid ||
-      this.password.invalid ||
+      this.password.hasError('invalidPassword') ||
+      this.password.hasError('passwordsdonotmatch') ||
       this.confirmPassword.invalid ||
       this.middleInit.invalid ||
       this.mobilePhone.invalid ||
@@ -151,8 +157,10 @@ export class EmployeeCreationComponent implements OnInit {
     });
   }
 
-  doPasswordsMatch(confirm: string) {
-    if (this.newEmployee.password !== confirm) {
+  doPasswordsMatch() {
+    if (this.password.invalid) return;
+
+    if (this.newEmployee.password !== this.confirmPasswordField) {
       this.confirmPassword.setErrors({
         'passwordsdonotmatch': true
       });

@@ -1,17 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { AuthService } from '../services/auth.service';
 import { ValidatorService } from '../services/validator.service';
-import { Employee } from '../types/Employee';
-import { EmployeeCreation } from '../types/EmployeeCreation';
-import { Patient } from '../types/Patient';
-import { PatientCreation } from '../types/PatientCreation';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
