@@ -25,7 +25,7 @@ export class ViewUpdateEmployeeComponent implements OnInit {
   enddate = new FormControl('');
   firstname = new FormControl('', [Validators.maxLength(35)]);
   lastname = new FormControl('', [Validators.maxLength(35)]);
-  email = new FormControl('', [Validators.email]);
+  email = new FormControl('', Validators.pattern(constants.EMAIL_REGEX));
   middleInit = new FormControl('', Validators.maxLength(1));
   mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
   workPhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));

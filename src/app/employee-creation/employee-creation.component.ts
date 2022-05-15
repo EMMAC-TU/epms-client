@@ -25,7 +25,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EmployeeCreationComponent implements OnInit {
   userid = new FormControl('');
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required, Validators.pattern(constants.EMAIL_REGEX)]);
   password = new FormControl('');
   confirmPassword = new FormControl('');
   middleInit = new FormControl('', Validators.maxLength(1));
