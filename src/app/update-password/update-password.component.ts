@@ -81,14 +81,14 @@ export class UpdatePasswordComponent implements OnInit {
     ).subscribe((value) => {
       if (this.data.employeeid) { // If an admin is updated a users password
         this.dialogRef.close();
-        this._snackBar.open('Password Successfully Changed', 'Confirm', {
+        this._snackBar.open('Password successfully updated!', 'Confirm', {
           duration: 5000
         });
       } else { //If a user is updated their own password
         this.auth.logout();
         this.dialogRef.close();
         this.router.navigateByUrl('/login');
-        this._snackBar.open('Password Successfully Changed! Please Sign Back In', 'Confirm', {
+        this._snackBar.open('Password successfully updated! Please sign back in.', 'Confirm', {
           duration: 5000
         });
       }
@@ -125,6 +125,10 @@ export class UpdatePasswordComponent implements OnInit {
     this.newPasswordForm.setErrors({
       'passwordsDontMatch': true
     });
+  }
+
+  handleEnterKeyDown(event: any) {
+    this.updatePassword()
   }
 
 }
