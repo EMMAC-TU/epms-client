@@ -9,7 +9,12 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { AuthService } from '../services/auth.service';
 import { ValidatorService } from '../services/validator.service';
 
-
+/**
+* Checks if a field is in an error state and returns the result
+* @param control the item to check
+* @param form the form to check
+* @returns true if the control is in an error state, false otherwise
+*/
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -17,13 +22,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+/**
+ * Class representing the "Search Patient" page
+ */
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.component.html',
   styleUrls: ['./update-password.component.css']
 })
 export class UpdatePasswordComponent implements OnInit {
-
+  // Class variables
   hide = true;
   hideConfirm = true;
   hideNew = true;
@@ -46,10 +54,16 @@ export class UpdatePasswordComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { employeeid?: string }
   ) { }
 
+  /**
+   * Function executed when the class is initialized
+   */
   ngOnInit(): void {
   }
 
-
+  /**
+   * Function to handle updating a password
+   * @returns Nothing on success or an error on failure
+   */
   updatePassword() {
     if (this.data.employeeid) { //Admin updating password
       this.passwordForm.disable();
@@ -96,6 +110,10 @@ export class UpdatePasswordComponent implements OnInit {
 
   }
 
+  /**
+  * Function to verify a password field
+  * @returns N/A
+  */
   isPasswordValid() {
     const msg = this.validator.validatePassword(this.newPassword);
     if (msg.length === 0) {
@@ -108,6 +126,10 @@ export class UpdatePasswordComponent implements OnInit {
     });
   }
 
+  /**
+  * Function to verify the confirm password field is valid
+  * @returns N/A
+  */
   confirmPasswords() {
     if (
       this.newPasswordForm.hasError('invalidPassword') || 
@@ -127,6 +149,11 @@ export class UpdatePasswordComponent implements OnInit {
     });
   }
 
+  /**
+  * Function to be executed any time the "ENTER" key is pressed within an input. It should 
+  *  take the same actions as the submit button (which is to call the updatePassword function).
+  * @param event 
+  */
   handleEnterKeyDown(event: any) {
     this.updatePassword()
   }

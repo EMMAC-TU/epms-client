@@ -8,6 +8,9 @@ import { EmployeeCreation } from '../types/EmployeeCreation';
 import { AuthService } from './auth.service';
 import { CookieHelperService } from './cookie-helper.service';
 
+/**
+ * Class representing the "Admin Service"
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +19,11 @@ export class AdminService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  /**
+   * Function to handle sending the request to create a new employee
+   * @param {EmployeeCreation} newEmployee The object with the information for the employee
+   * @returns The response from the back end
+   */
   createEmployee(newEmployee: EmployeeCreation): Observable<Object> {
     this.headers = this.auth.setAuthHeader();
     return this.http.post(`${environment.apiURL}/employees`, newEmployee, {
@@ -24,6 +32,11 @@ export class AdminService {
     });
   }
 
+  /**
+   * Function to handle sending the request to search for a new employee
+   * @param {BackendQuery} backendQuery The BackendQuery object with the information for the query
+   * @returns The response from the back end
+   */
   searchEmployees(backendQuery: BackendQuery) {
     let query = [];
 
@@ -41,6 +54,11 @@ export class AdminService {
     });
   }
 
+  /**
+   * Function to handle sending the request to get an employee record
+   * @param {string} employeeid The employeeid for the employee of the record to get
+   * @returns The response from the back end
+   */
   getEmployee(employeeid: string) {
     this.headers = this.auth.setAuthHeader();
     return this.http.get(
@@ -52,6 +70,12 @@ export class AdminService {
     );
   }
 
+/**
+ * Function to handle sending the request to update an employee record
+ * @param employeeid The employeeid of the employee to update
+ * @param employee The updated employee data
+ * @returns The response from the back end
+ */
   updateEmployee(employeeid: string | undefined, employee: Partial<Employee>) {
     this.headers = this.auth.setAuthHeader();
     return this.http.patch(

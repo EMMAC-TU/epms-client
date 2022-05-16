@@ -7,12 +7,16 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { AuthService } from '../services/auth.service';
 import { CookieHelperService } from '../services/cookie-helper.service';
 
+/**
+ * Class representing the Login page
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  // Class variables
   hide = true;
   username="";
   password="";
@@ -23,12 +27,21 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  /**
+  * Function to execute when the class is initialized. Redirects to the home page if the user
+  *    is already logged in.
+  * @returns N/A
+  */
+    ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
       this.router.navigateByUrl('/')
     }
   }
 
+  /**
+   * This function will perform the login to the EHRS. If login is successful it will redirecto to the hope page.
+   * @returns An error if no username or password was input, or the server returns an error code.
+   */
   login() {
     if (this.username.length === 0 || this.password.length === 0) {
       this.openSnackBar("Please input a username and password to continue", "Confirm")
@@ -55,6 +68,10 @@ export class LoginComponent implements OnInit {
     return;
   }
 
+  /**
+   * This function will generate a dialog-window to inform the user next steps when they
+   *  forget their username or password
+   */
   contactAdmin() {
     this.dialog.open(DialogWindowComponent, {
       width: '400px',
@@ -67,10 +84,20 @@ export class LoginComponent implements OnInit {
 
   }
 
+  /**
+   * Function to generate a snackBar popup window with the given information
+   * @param {string} message The message to display
+   * @param {string} action The text to display on the button which closes the snackBar
+   */
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {duration: 4000});
   }
 
+  /**
+   * Function to be executed any time the "ENTER" key is pressed within an input. It should 
+   *  take the same actions as the login button (which is to call the login function).
+   * @param event 
+   */
   handleEnterKeyDown(event: any) {
     this.login()
   }

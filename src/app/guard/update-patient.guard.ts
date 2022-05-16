@@ -4,6 +4,11 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { PERMISSIONS } from '../types/Permissions';
 
+/**
+ * Class representing the update patient guard. Used to determine if a user is allowed to update a patient record.
+ * If they are not allowed it will open a snackBar indicating they don't have authoriation, 
+ * and return the user to the homescreen.
+ */
 @Injectable({
   providedIn: 'root'
 })

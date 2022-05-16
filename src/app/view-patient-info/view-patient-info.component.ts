@@ -15,12 +15,16 @@ import { Patient } from '../types/Patient';
 import { PatientCreation } from '../types/PatientCreation';
 import { PERMISSIONS } from '../types/Permissions';
 
+/**
+ * Class representing the page to view a patient
+ */
 @Component({
   selector: 'app-view-patient-info',
   templateUrl: './view-patient-info.component.html',
   styleUrls: ['./view-patient-info.component.css']
 })
 export class ViewPatientInfoComponent implements OnInit {
+  // Class variables
   firstname = new FormControl('', [Validators.maxLength(35)]);
   lastname = new FormControl('', [Validators.maxLength(35)]);
   email = new FormControl('', Validators.pattern(constants.EMAIL_REGEX));
@@ -47,6 +51,10 @@ export class ViewPatientInfoComponent implements OnInit {
     private auth: AuthService
   ) { }
 
+  /**
+  * Function to execute when the class is initialized. Requests the patient information from the backend
+  * @returns N/A
+  */
   ngOnInit(): void {
     this.updatedFields = {};
     this.activeRouter.params.subscribe(
@@ -69,6 +77,12 @@ export class ViewPatientInfoComponent implements OnInit {
     )
   }
 
+  /**
+   * Function to verify all required fields have been input
+   * @param {string} text The data to check
+   * @param {string} type The type of field
+   * @returns N/A
+   */
   requiredField(text: string | undefined, type: string) {
     if (text && text.length > 0) return;
 
@@ -90,6 +104,10 @@ export class ViewPatientInfoComponent implements OnInit {
     }
   }
 
+  /**
+  * Function to verify the Date of Birth field
+  * @returns N/A
+  */
   isDOBValid() {
     const dob = this.updatedFields.dateofbirth ? this.updatedFields.dateofbirth : "";
     const isValid = this.validator.validateDateOfBirth(dob);
@@ -131,10 +149,17 @@ export class ViewPatientInfoComponent implements OnInit {
       })
   }
 
+  /**
+   * Function to verify a user is allowed to view a patient
+   */
   updateFields() {
     this.isAuthorized();      
   }
 
+  /**
+   * Submit the request to view a patient to the backend
+   * @returns Nothing on error, redirects to the patient's page on success
+   */
   submit() {
     if (
       this.firstname.hasError('empty') ||
@@ -188,6 +213,9 @@ export class ViewPatientInfoComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to prepare the data for sending the request to the backend
+   */
   cleanData() {
     let obj = Object.entries(this.updatedFields).filter((value) => {
       let key = value[0];
@@ -202,11 +230,18 @@ export class ViewPatientInfoComponent implements OnInit {
     this.updatedFields = obj as Patient;
   }
 
+  /**
+   * Function to check if the page needs to be reloaded
+   */
   goBackandReset() {
     this.isBeingUpdated = !this.isBeingUpdated;
     location.reload();
   }
 
+  /**
+   * Function to parse the response from the backend
+   * @param {Patient} res The response to parse
+   */
   setFields(res: Patient) {
     this.patient = res;
     Object.entries(res).forEach((values) => {
@@ -226,6 +261,10 @@ export class ViewPatientInfoComponent implements OnInit {
     });
   }
 
+  /**
+  * Function to convert a date to the longDate format (Ex: "May 9, 2022")
+  * @returns {string} The formatted date, or an empty string
+  */
   convert_date(date?:string){
     if ( date != undefined && date != null){
       return formatDate(date, "longDate", 'en-US', 'UTC')
@@ -233,6 +272,11 @@ export class ViewPatientInfoComponent implements OnInit {
     return ""
   }
   
+  /**
+  * Function to generate a snackBar popup window with the given information
+  * @param {string} message The message to display
+  * @param {string} action The text to display on the button which closes the snackBar
+  */
   openSnackBar(msg: string, action: string) {
     this._snackBar.open(msg, action, {
       duration: 4000

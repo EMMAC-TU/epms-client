@@ -11,7 +11,16 @@ import { ValidatorService } from '../services/validator.service';
 import { constants } from '../types/Constants';
 import { PatientCreation } from '../types/PatientCreation';
 
+/**
+ * Class to handle errors for invalid/null input into the form
+ */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
+    /**
+   * Checks if a field is in an error state and returns the result
+   * @param control the item to check
+   * @param form the form to check
+   * @returns true if the control is in an error state, false otherwise
+   */
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -23,7 +32,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './patient-creation.component.html',
   styleUrls: ['./patient-creation.component.css']
 })
+
+/**
+ * Class representing the page-not-found page
+ */
 export class PatientCreationComponent implements OnInit {
+  // Class variables
   email = new FormControl('', [Validators.required, Validators.pattern(constants.EMAIL_REGEX)]);
   middleInit = new FormControl('', Validators.maxLength(1));
   mobilePhone = new FormControl('', Validators.pattern(constants.PHONE_REGEX));
@@ -64,9 +78,16 @@ export class PatientCreationComponent implements OnInit {
     private validator: ValidatorService,
     private router: Router) { }
 
+  /**
+   * Function that gets executed when this class is instantiated
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Function to verify fields are ready for submission, and then open the confirmation dialog window.
+   * @returns N/A
+   */
   openDialog() {
     // Check required fields
     if (!(this.newPatient.firstname && 
@@ -122,6 +143,10 @@ export class PatientCreationComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to verify the Date of Birth field
+   * @returns N/A
+   */
   isDOBValid() {
     const dob = this.newPatient.dateofbirth ? this.newPatient.dateofbirth : "";
     const isValid = this.validator.validateDateOfBirth(dob);
@@ -132,6 +157,11 @@ export class PatientCreationComponent implements OnInit {
     }
   }
 
+    /**
+   * Function to generate a snackBar popup window with the given information
+   * @param {string} message The message to display
+   * @param {string} action The text to display on the button which closes the snackBar
+   */
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {duration: 4000});
   }
