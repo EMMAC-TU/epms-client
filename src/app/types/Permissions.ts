@@ -1,3 +1,6 @@
+/**
+ * Constants for the systems permissions
+ */
 export const PERMISSIONS = {
     ADMIN: 'administrator',
     NURSE: 'nurse',

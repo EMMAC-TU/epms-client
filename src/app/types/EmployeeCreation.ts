@@ -1,3 +1,6 @@
+/**
+ * Interface that defines what fields can be sent to create an employee
+ */
 export interface EmployeeCreation {
     userid?: string;
     password?: string;
