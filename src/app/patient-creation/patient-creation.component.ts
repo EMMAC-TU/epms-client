@@ -34,7 +34,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 /**
- * Class representing the page-not-found page
+ * Class representing the patient-creation page
  */
 export class PatientCreationComponent implements OnInit {
   // Class variables
