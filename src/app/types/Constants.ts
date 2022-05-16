@@ -1,5 +1,6 @@
-// This file will hold global constant variables
-
+/**
+ * Holds the constants that will be used in the client
+ */
 export const constants = {
     MIN_ID_LEN: 5,
     MIN_PWD_LEN: 8,

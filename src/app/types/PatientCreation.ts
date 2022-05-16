@@ -1,3 +1,6 @@
+/**
+ * An interface that defines what fields can be filled out during the creation of a patient
+ */
 export interface PatientCreation {
     height?: number;
     weight?: number;
