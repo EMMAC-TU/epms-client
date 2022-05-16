@@ -155,7 +155,7 @@ export class UpdatePasswordComponent implements OnInit {
   * @param event 
   */
   handleEnterKeyDown(event: any) {
+    this.isPasswordValid()
     this.updatePassword()
   }
-
 }
