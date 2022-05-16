@@ -23,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 /**
- * Class representing the "Search Patient" page
+ * Class representing the "Update Password" page
  */
 @Component({
   selector: 'app-update-password',
