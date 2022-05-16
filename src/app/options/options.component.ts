@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { UpdatePasswordComponent } from '../update-password/update-password.component';
 
 /**
- * Class representing the Login page
+ * Class representing the Options page
  */
 @Component({
   selector: 'app-options',
