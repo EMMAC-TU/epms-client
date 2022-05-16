@@ -80,7 +80,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   /**
-   * Function to submit the search for an employee to the back end and then display the results
+   * Function to submit the search for an patient to the back end and then display the results
    * @param {boolean} resetPage Whether or not to reset the pagination to the first page
    * @returns N/A
    */
