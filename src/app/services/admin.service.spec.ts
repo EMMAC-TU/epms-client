@@ -1,3 +1,4 @@
+// This file has been automatically generated for unit testing via the Karma test runner
 import { TestBed } from '@angular/core/testing';
 
 import { AdminService } from '../services/admin.service';

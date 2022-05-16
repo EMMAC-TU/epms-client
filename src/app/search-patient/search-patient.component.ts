@@ -13,20 +13,34 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { formatDate } from '@angular/common';
 import { PatientQueryResp } from '../types/PatientQueryResp';
 
+/**
+ * Class to handle errors for invalid/null input into the form
+ */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
+
+  /**
+   * Checks if a field is in an error state and returns the result
+   * @param control the item to check
+   * @param form the form to check
+   * @returns true if the control is in an error state, false otherwise
+   */
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
+/**
+ * Class representing the "Search Patient" page
+ */
 @Component({
   selector: 'app-search-patient',
   templateUrl: './search-patient.component.html',
   styleUrls: ['./search-patient.component.css']
 })
 export class SearchPatientComponent implements OnInit {
-  @ViewChild('myPaginator') myPaginator: MatPaginator | undefined;
+  // Class variables
+  @ViewChild('myPaginator') myPaginator: MatPaginator | undefined;  // Allow access to the MatPaginator HTML object
   MIN_ID_LEN = constants.MIN_ID_LEN;
   patientid = new FormControl('',[Validators.pattern(constants.UUIDV4_REGEX)]);
   dateofbirth = new FormControl('');
@@ -58,10 +72,18 @@ export class SearchPatientComponent implements OnInit {
     private service: PatientService,
     private router: Router) {}
 
+  /**
+  * Function that gets executed on class instantiation. It will submit a search to get initial results.
+  */
   ngOnInit(): void {
     this.submitSearch();
   }
 
+  /**
+   * Function to submit the search for an patient to the back end and then display the results
+   * @param {boolean} resetPage Whether or not to reset the pagination to the first page
+   * @returns N/A
+   */
   submitSearch(resetPage: boolean=false) {
     // Verify inputs are valid
     if( this.patientid.hasError('invaliduuidv4') ||
@@ -96,15 +118,27 @@ export class SearchPatientComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to go to view a specific patient record
+   * @param {string} patientid The employeeid of the employee to display
+   */
   openPatientDialog(patientid?: string) {
     this.router.navigate(['/patient', patientid]);
   }
 
+  /**
+   * Function to generate a snackBar popup window with the given information
+   * @param {string} message The message to display
+   * @param {string} action The text to display on the button which closes the snackBar
+   */
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {duration: 4000});
   }
 
-
+  /**
+   * Function to verify a patientID field
+   * @returns N/A
+   */
   isPatientIdValid() {
     const id = this.patientQuery.patientid ? this.patientQuery.patientid : '';
     if (!(id.match(constants.UUIDV4_REGEX)) && id !== '') {
@@ -116,6 +150,10 @@ export class SearchPatientComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to verify a date of birth field
+   * @returns N/A
+   */
   isDOBValid() {
     const dob = this.patientQuery.dob ? this.patientQuery.dob : "";
     const isValid = this.validator.validateDateOfBirth(dob);
@@ -127,6 +165,10 @@ export class SearchPatientComponent implements OnInit {
     if (dob === '') this.dateofbirth.reset();
   }
 
+  /**
+   * Function to execute when the pagination buttons are clicked.
+   * @returns N/A
+   */
   onChangePage(pe:PageEvent) {
     this.patientQuery.limit= pe.pageSize;
     this.patientQuery.page=pe.pageIndex + 1;
@@ -135,6 +177,10 @@ export class SearchPatientComponent implements OnInit {
     this.submitSearch();
   }
 
+  /**
+   * Function to convert a date to the longDate format (Ex: "May 9, 2022")
+   * @returns {string} The formatted date, or an empty string
+   */
   convert_date(date?:string){
     if ( date != undefined && date != null){
       return formatDate(date, "longDate", 'en-US', 'UTC')
@@ -142,6 +188,9 @@ export class SearchPatientComponent implements OnInit {
     return ""
   }
 
+  /**
+   * Function to change the formatting from A->Z or Z->A based on employee last name.
+   */
   changeSort() {
     this.patientQuery.sort = this.patientQuery.sort === 1 ? -1 : 1;
     this.submitSearch();

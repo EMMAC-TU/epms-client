@@ -1,3 +1,4 @@
+// Define the environment that we're executing in
 export const environment = {
   production: true,
   experimental: false,

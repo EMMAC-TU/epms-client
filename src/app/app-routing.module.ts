@@ -14,6 +14,7 @@ import { ViewPatientInfoComponent } from './view-patient-info/view-patient-info.
 import { ViewUpdateEmployeeComponent } from './view-update-employee/view-update-employee.component';
 import { SearchPatientComponent } from './search-patient/search-patient.component';
 
+// Define the possible routes (pages) that can be navigated to
 const routes: Routes = [
   {
     path: 'login',

@@ -7,6 +7,9 @@ import { PatientCreation } from '../types/PatientCreation';
 import { AuthService } from './auth.service';
 import { BackendQuery } from '../types/BackendQuery';
 
+/**
+ * Class representing the "Patient Service"
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +20,11 @@ export class PatientService {
     private auth: AuthService) {
   }
 
+  /**
+   * Function to handle sending the request to create a new patient
+   * @param {PatientCreation} newPatient The object with the information for the patient
+   * @returns The response from the back end
+   */
   createPatient(newPatient: PatientCreation): Observable<Object> {
     this.headers = this.auth.setAuthHeader();
     return this.http.post(
@@ -25,6 +33,12 @@ export class PatientService {
       { observe: "response", headers: this.headers });
   }
 
+  /**
+  * Function to handle sending the request to update an patient record
+  * @param patientid The patientid of the patient to update
+  * @param updatedPatient The updated patient data
+  * @returns The response from the back end
+  */
   updatePatient(patientid: string | undefined, updatedPatient: Partial<Patient>) {
     this.headers = this.auth.setAuthHeader();
     return this.http.patch(
@@ -37,6 +51,11 @@ export class PatientService {
     );
   }
 
+  /**
+  * Function to handle sending the request to search for a new patient
+  * @param {BackendQuery} backendQuery The BackendQuery object with the information for the query
+  * @returns The response from the back end
+  */
   searchPatients(backendQuery: BackendQuery) {
     let query = [];
 
@@ -54,6 +73,11 @@ export class PatientService {
     });
   }
 
+  /**
+  * Function to handle sending the request to get a patient record
+  * @param {string} patientid The patientid for the patient of the record to get
+  * @returns The response from the back end
+  */
   getAPatient(patientid: string) {
     this.headers = this.auth.setAuthHeader();
     return this.http.get<Patient>(

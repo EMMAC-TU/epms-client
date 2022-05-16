@@ -5,6 +5,11 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { PERMISSIONS } from '../types/Permissions';
 
+/**
+ * Class representing the patient guard. Used to determine if a user is allowed to create a patient
+ * If they don't have permission it will throw an error, open a snackBar indicating they don't have authoriation, 
+ * and return the user to the homescreen.
+ */
 @Injectable({
   providedIn: 'root'
 })

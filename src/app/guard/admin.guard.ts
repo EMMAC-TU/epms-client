@@ -5,6 +5,11 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { PERMISSIONS } from '../types/Permissions';
 
+/**
+ * Class representing the admin guard. Used to determine if a user is allowed to execute an admin action
+ * Will throw an error, open a snackBar indicating they don't have authoriation, 
+ * and return the user to the homescreen if that is the case.
+ */
 @Injectable({
   providedIn: 'root'
 })

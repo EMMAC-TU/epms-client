@@ -1,3 +1,4 @@
+// This file has been automatically generated for unit testing via the Karma test runner
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';

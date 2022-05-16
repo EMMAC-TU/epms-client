@@ -1,11 +1,15 @@
 import { Component, OnInit, Output } from '@angular/core';
 
+/**
+ * Class representing the home page
+ */
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+  // Class variables
   @Output() isLogin : boolean = true;
   dataSource = [
     {position: 'Administrator', ViewPatientInfo: true, UpdatePatientInfo: true, CreatePatientRecord: true, SearchPatientRecord: true,

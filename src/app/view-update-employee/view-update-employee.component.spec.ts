@@ -1,3 +1,4 @@
+// This file has been automatically generated for unit testing via the Karma test runner
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewUpdateEmployeeComponent } from './view-update-employee.component';

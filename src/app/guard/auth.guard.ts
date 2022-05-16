@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { CookieHelperService } from '../services/cookie-helper.service';
 
+/**
+ * Class representing the auth guard. Used to determine if a user is logged in
+ * If they are not it will redirect the user to the login screen.
+ */
 @Injectable({
   providedIn: 'root'
 })

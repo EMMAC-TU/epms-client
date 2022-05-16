@@ -1,3 +1,4 @@
+/* Provide default CSS formatting for the application */
 mat-toolbar {
     display: flex;
 }

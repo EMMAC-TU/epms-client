@@ -15,12 +15,16 @@ import { EmployeeCreation } from '../types/EmployeeCreation';
 import { Patient } from '../types/Patient';
 import { UpdatePasswordComponent } from '../update-password/update-password.component';
 
+/**
+ * Class representing the page to view an employee
+ */
 @Component({
   selector: 'app-view-update-employee',
   templateUrl: './view-update-employee.component.html',
   styleUrls: ['./view-update-employee.component.css']
 })
 export class ViewUpdateEmployeeComponent implements OnInit {
+  // Class variables
   userid = new FormControl('', [Validators.maxLength(35)]);
   enddate = new FormControl('');
   firstname = new FormControl('', [Validators.maxLength(35)]);
@@ -48,6 +52,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     private dialog: MatDialog,
   ) { }
 
+  /**
+  * Function to execute when the class is initialized. Requests the employee information from the backend
+  * @returns N/A
+  */
   ngOnInit(): void {
     this.updatedEmp = {};
     this.activeRouter.params.subscribe(
@@ -72,6 +80,9 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     )
   }
 
+  /**
+   * Function to enable an authorized employee to update their or another employee's password
+   */
   updatePassword() {
     this.dialog.open(UpdatePasswordComponent, {
       data: {
@@ -80,6 +91,11 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Function used to determine if the end date is valid
+  * @param {string} enddate The end date to validate
+  * @returns {boolean} true if it is valid, false otherwise
+  */
   validateEndDate() {
     const enddate = this.updatedEmp.enddate ? this.updatedEmp.enddate : "";
     const isValid = this.validator.validateEndDate(enddate);
@@ -90,6 +106,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to verify a UserID is valid
+   * @returns N/A
+   */
   validateUserId() {
     let illegalchar = this.validator.isUserIdValid(this.userid, this.updatedEmp.userid);
     if (illegalchar.length === 0) {
@@ -101,10 +121,17 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to flip the status of whether the currently viewed employee record is being modified
+   */
   updateFields() {
     this.isBeingUpdated = !this.isBeingUpdated;
   }
 
+  /**
+   * Function to update an employee record
+   * @returns N/A
+   */
   submit() {
     if (
       this.firstname.hasError('empty') ||
@@ -159,11 +186,17 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Function to check if the page needs to be reloaded
+  */
   goBackandReset() {
     this.isBeingUpdated = !this.isBeingUpdated;
     location.reload();
   }
 
+  /**
+  * Function to prepare the data for sending the request to the backend
+  */
   cleanData() {
     let obj = Object.entries(this.updatedEmp).filter((value) => {
       let key = value[0];
@@ -178,6 +211,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     this.updatedEmp = obj as Patient;
   }
 
+  /**
+  * Function to verify the Date of Birth field
+  * @returns N/A
+  */
   isDOBValid() {
     const dob = this.updatedEmp.dateofbirth ? this.updatedEmp.dateofbirth : "";
     const isValid = this.validator.validateDateOfBirth(dob);
@@ -191,6 +228,12 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     }
   }
 
+  /**
+  * Function to verify all required fields have been input
+  * @param {string} text The data to check
+  * @param {string} type The type of field
+  * @returns N/A
+  */
   requiredField(text: string | undefined, type: string) {
     if (text && text.length > 0) return;
 
@@ -212,6 +255,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     }
   }
 
+  /**
+  * Function to parse the response from the backend
+  * @param {Employee} res The response to parse
+  */
   setFields(res: Employee) {
     this.employee = res;
     Object.entries(res).forEach((values) => {
@@ -228,6 +275,10 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Function to convert a date to the longDate format (Ex: "May 9, 2022")
+  * @returns {string} The formatted date, or an empty string
+  */
   convert_date(date?:string){
     if ( date != undefined && date != null){
       return formatDate(date, "longDate", 'en-US', 'UTC')
@@ -235,6 +286,11 @@ export class ViewUpdateEmployeeComponent implements OnInit {
     return ""
   }
 
+  /**
+  * Function to generate a snackBar popup window with the given information
+  * @param {string} message The message to display
+  * @param {string} action The text to display on the button which closes the snackBar
+  */
   openSnackBar(msg: string, action: string) {
     this._snackBar.open(msg, action, {
       duration: 4000
